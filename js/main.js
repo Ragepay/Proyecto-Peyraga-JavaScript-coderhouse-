@@ -1,22 +1,22 @@
-// Declaracion de variables que van a ser actualizadas.
-const AUMENTO = 1.00;
-let tm16m = 918760 * AUMENTO;
-let tm712m = 1050120 * AUMENTO;
-let tm1 = 1266784 * AUMENTO;
-let tm2 = 1304782 * AUMENTO;
-let tm3 = 1369919 * AUMENTO;
-let tm3a = 1438007 * AUMENTO;
-let tm3b = 1509967 * AUMENTO;
-let tl1 = 1585963 * AUMENTO;
-let tl2 = 1664749 * AUMENTO;
-let tl3 = 1748806 * AUMENTO;
-let tl3a = 1835811 * AUMENTO;
-let constante192 = 192.025294117647;
-let a = constante192;
-
 function calcularSueldo() {
+    
+    // Declaracion de variables que van a ser actualizadas.
+    const AUMENTO = 1.00;
+    let tm16m = 918760 * AUMENTO;
+    let tm712m = 1050120 * AUMENTO;
+    let tm1 = 1266784 * AUMENTO;
+    let tm2 = 1304782 * AUMENTO;
+    let tm3 = 1369919 * AUMENTO;
+    let tm3a = 1438007 * AUMENTO;
+    let tm3b = 1509967 * AUMENTO;
+    let tl1 = 1585963 * AUMENTO;
+    let tl2 = 1664749 * AUMENTO;
+    let tl3 = 1748806 * AUMENTO;
+    let tl3a = 1835811 * AUMENTO;
+    let constante192 = 192.025294117647;
+    let a = constante192;
 
-    // Declaracion Variables de la funcion
+    // Declaracion Variables.
     let categoria = document.getElementById("categoria").value;
     let base;
 
@@ -110,7 +110,7 @@ function calcularSueldo() {
     } else if (antiguedad == 0) {
         antiguedadTotal = 0;
     } else {
-        antiguedadTotal = base * (0.04 + 0.01 * (antiguedad-1));
+        antiguedadTotal = base * (0.04 + 0.01 * (antiguedad - 1));
     }
 
     // Horas Extra
@@ -133,57 +133,120 @@ function calcularSueldo() {
     }
 
 
-    let horas50Total = horas50 * ((base / a) * (1.5) * (1.04 + 0.01 * (antiguedad-1))) ;
-    let horas100Total = horas100 * ((base / a) * (2) * (1.04 + 0.01 * (antiguedad-1)));
-    let horas200Total = horas200 * ((base / a) * (4) * (1.04 + 0.01 * (antiguedad-1)));
-    let horasNocturnasTotal = horasNocturnas * (base / a) * 0.36 * (1.04 + 0.01 * (antiguedad-1));
+    let horas50Total = horas50 * ((base / a) * (1.5) * (1.04 + 0.01 * (antiguedad - 1)));
+    let horas100Total = horas100 * ((base / a) * (2) * (1.04 + 0.01 * (antiguedad - 1)));
+    let horas200Total = horas200 * ((base / a) * (4) * (1.04 + 0.01 * (antiguedad - 1)));
+    let horasNocturnasTotal = horasNocturnas * (base / a) * 0.36 * (1.04 + 0.01 * (antiguedad - 1));
 
 
     // Calcular el sueldo bruto
     if (antiguedad == 0) {
         horas50Total = horas50 * (base / a) * (1.5);
         horas100Total = horas100 * (base / a) * (2);
-        horas200Total = horas100 *(base / a) * (4);
+        horas200Total = horas100 * (base / a) * (4);
         horasNocturnasTotal = horasNocturnas * (base / a) * 0.36;
     }
 
-
     sueldoBruto = sueldoBase + antiguedadTotal + horas50Total + horas100Total + horas200Total + horasNocturnasTotal;
-    let sabadoM = (7 * ((base / a) * (1.5) * (1.04 + 0.01 * (antiguedad-1)))) + (1.5 * ((base / a) * (4) * (1.04 + 0.01 * (antiguedad-1))));
-    let feriado = 8.5 * (((base / a) * (4) * (1.04 + 0.01 * (antiguedad-1))));
-    
+    let sabadoM = (7 * ((base / a) * (1.5) * (1.04 + 0.01 * (antiguedad - 1)))) + (1.5 * ((base / a) * (4) * (1.04 + 0.01 * (antiguedad - 1))));
+    let feriado = 8.5 * (((base / a) * (4) * (1.04 + 0.01 * (antiguedad - 1))));
+
 
     // Sueldo Neto
+    //208.174,81 Es el maximo de aportes de jubilacion(Abril-Mayo-Junio 24') y es el 11%.
+    //Bruto maximo: 1.892.498,29 para llegar a los aportes maximos
 
-    
-    //208.174,81
-    //Bruto maximo: 1.892.498,29
-    
-    if (sueldoBruto <= 1892498.29){
+    if (sueldoBruto <= 1892498.29) {
         sueldoNeto = sueldoBruto * 0.79;
     } else {
-        sueldoNeto = sueldoBruto - (1892498*0.21);
+        sueldoNeto = sueldoBruto - (1892498 * 0.21);
     }
-    
 
-    
 
-    // Mostrar los resultados en el formulario
+    // Mostrar los resultados en el formulario.
     document.getElementById("sueldoBrutoResultado").innerText = sueldoBruto.toFixed(2);
     document.getElementById("sueldoNetoResultado").innerText = sueldoNeto.toFixed(2);
     document.getElementById("sabadoM").innerText = sabadoM.toFixed(2);
     document.getElementById("feriado").innerText = feriado.toFixed(2);
-    //document.getElementById("gananciasResultado").innerText = "Ganancias: $" + ganancias.toFixed(2);
+
 }
 
 function habilitarInput() {
     categoria = document.getElementById("categoria");
     datoInput = document.getElementById("sueldoBruto");
-  
+
     if (categoria.value !== "") {
-      datoInput.disabled = true;
+        datoInput.disabled = true;
     } else {
-      datoInput.disabled = false;
+        datoInput.disabled = false;
     }
+}
+
+function Comparar() {
+    let precioContado = parseFloat(document.getElementById("contado").value);
+    let precioCuotas = parseFloat(document.getElementById("cuotas").value);
+    let cantidadCuotas = parseInt(document.getElementById("cantcuotas").value);
+    let tnaPlazoFijo = parseFloat(document.getElementById("TNA").value);
+    let comentario = " ";
+
+
+    // Calcula de la cuota.
+    let cuota = precioCuotas / cantidadCuotas;
+
+    // Calculo del interes mensual.
+    let tasaMensual = tnaPlazoFijo / 12 / 100;
+
+    let monto = precioCuotas;
+
+    // Ciclo de la cantidad de cuotas
+    for (let i = 1; i <= cantidadCuotas; i++) {
+        let saldo = monto * ( 1 + tasaMensual) - cuota;
+        monto = saldo;
+        console.log(monto);
+    }
+
+    // Calcu
+    precioCuotas -= monto;
+    
+    if (precioContado < precioCuotas){
+        // Te conviene precio Contado.
+        comentario = "Te conviene comprar al contado/efectivo."
+        
+    } else{
+        // Te conviene precio Financiado.
+        comentario = "Te conviene comprar en cuotas sin interes."
+    }
+
+    // Muestra los resultados
+    let resultadoHTML = "<h2>Comparativa</h2>";
+    resultadoHTML += "<p>Costo total Efectivo: $" + precioContado.toFixed(2) + "</p>";
+    resultadoHTML += "<p>Costo total Financiado: $" + precioCuotas.toFixed(2) + "</p>";
+    resultadoHTML += "<p>" + comentario + "</p>";
+    
+    document.getElementById("resultado").innerHTML = resultadoHTML;
+}
+
+function calcularPlazoFijo() {
+
+    // Obtener los valores ingresados por el usuario.
+    let monto = parseFloat(document.getElementById("inputMonto").value);
+    let tasaInteres = parseFloat(document.getElementById("inputTasaInteres").value);
+    let meses = parseInt(document.getElementById("inputMeses").value);
+    let interesCompuesto = document.getElementById("inputInteresCompuesto").checked;
+    let ganancias;
+  
+    // Calcular las ganancias.
+    if (interesCompuesto) {
+      ganancias = monto * Math.pow((tasaInteres / 365 * 30 / 100 + 1), meses) - monto;
+    } else {
+      ganancias = monto * (tasaInteres / 365) * (meses * 30) / 100;
+    }
+    let montoTotal = monto + ganancias;
+  
+    // Mostrar los resultados.
+    document.getElementById("ganancias").textContent = " $ " + ganancias.toFixed(2);
+    document.getElementById("montoTotal").textContent = " $ " + montoTotal.toFixed(2);
+    console.log(ganancias +" "+ montoTotal);
   }
+
   

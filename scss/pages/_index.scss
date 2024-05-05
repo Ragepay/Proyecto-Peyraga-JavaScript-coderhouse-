@@ -1,98 +1,305 @@
-/* calculadoras main */
+/* calculadoras Financieras main */
+html {
+  scroll-behavior: smooth;
+}
 
 .container-box {
 
-    text-align: center;
-    margin: 1em;
-    margin-bottom: 2em;
-    padding: 2em;
-    border: 5px solid #14805c;
-    border-radius: 1em;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1),
-                  0 0 20px rgba(0, 0, 0, 0.2),
-                  0 0 30px rgba(0, 0, 0, 0.3);
-  
-    h2 {
+  text-align: center;
+  margin: 1em;
+  margin-bottom: 2em;
+  padding: 2em;
+  border: 5px solid #14805c;
+  border-radius: 1em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(0, 0, 0, 0.3);
+
+  h2 {
+    color: #14805c;
+    font-size: 4.5vw;
+    height: auto;
+    font-weight: bold;
+    grid-column: 1/4
+  }
+
+  .box1,
+  .box2,
+  .box3 {
+    @include box;
+    height: 500px;
+
+    h3 {
       color: #14805c;
-      font-size: 4.5vw;
-      height: auto;
-      font-weight: bold;
-      grid-column: 1/4
-    }
-  
-    .box1,
-    .box2,
-    .box3 {
-      @include box;
-      height: 500px;
-  
-      h3{
-        color: #14805c;
       font-size: 2vw;
       height: auto;
       font-weight: bold;
       grid-column: 1/4
-      }
     }
-  
-    .box1:hover {
-      @include boxhover;
-    }
-  
-    .box2:hover {
-      @include boxhover;
-    }
-  
-    .box3:hover {
-      @include boxhover;
-    }
-  
-    .box1 {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
-        url(../img/fotoSueldoNeto.jpg);
-  
-    }
-  
-  
-    .box2 {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
-        url(../img/fotoPlazoFijo.jpeg);
-  
-    }
-  
-    .box3 {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
-        url(../img/fotoImpuestoGanancias.jpeg);
-  
-    }
-  
-    .box1 .boton button {
-      @include boxboton;
-  
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-  
-    .box2 .boton button {
-      @include boxboton;
-  
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-  
-    .box3 .boton button {
-      @include boxboton;
-  
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-  
   }
-  
-  /* FIN de calculadoras */
+
+  .box1:hover {
+    @include boxhover;
+  }
+
+  .box2:hover {
+    @include boxhover;
+  }
+
+  .box3:hover {
+    @include boxhover;
+  }
+
+  .box1 {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+      url(../img/fotoSueldoNeto.jpg);
+
+  }
+
+
+  .box2 {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+      url(../img/fotoPlazoFijo.jpeg);
+
+  }
+
+  .box3 {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+      url(../img/fotoImpuestoGanancias.jpeg);
+
+  }
+
+  .box1 .boton button {
+    @include boxboton;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .box2 .boton button {
+    @include boxboton;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .box3 .boton button {
+    @include boxboton;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+}
+
+/* FIN de calculadoras Financieras */
+
+/* Inicio sueldoneto main */
+form {
+  margin-bottom: 15px;
+  font-family: Arial, sans-serif;
+}
+
+.containerBox2 {
+  text-align: center;
+  margin: 3em;
+  padding: 1.5em;
+  border-radius: 1em;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  border: 5px solid $colorverde;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+
+  h1 {
+    font-size: 2em;
+    color: $colorverde;
+    justify-content: center;
+    padding-bottom: .5em;
+    border-bottom: 3px solid $colorverde;
+  }
+
+  h2 {
+    font-size: 1.6em;
+    color: $colorverde;
+    justify-content: center;
+    padding-bottom: .5em;
+    text-decoration: underline;
+
+  }
+
+  .formulario-box {
+    margin-top: 1.5em;
+    border-bottom: 2px solid lightgrey;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+  }
+
+  .sabadoM {
+    color: chocolate
+  }
+
+  .feriado {
+    color: blue;
+  }
+
+
+  label {
+    display: inline-block;
+    width: 200px;
+    font-weight: bold;
+  }
+
+}
+
+/* Estilo para los resultados */
+.resultados {
+  h2 {
+    font-size: 1.6em;
+    color: $colorverde;
+    justify-content: center;
+    padding-bottom: .5em;
+    text-decoration: underline;
+
+  }
+
+  div {
+    margin-bottom: 10px;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  span {
+    font-weight: normal;
+    margin-left: 10px;
+  }
+
+  p {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+}
+
+
+/* Estilo para los resultados span con ID sabadoM y feriado */
+#sabadoM,
+#feriado {
+  font-style: italic;
+}
+
+
+select,
+input[type="number"],
+input[type="radio"],
+button {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+
+
+.boton4 {
+  font-weight: 700;
+  color: $colorblanco;
+  padding: 12px 35px;
+  background-color: $colorverde;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+}
+
+.boton4:hover {
+  transform: scale(1.1);
+}
+
+/* FIN sueldoneto main */
+
+/* Inicio plazofijo main */
+
+.interesCompuesto input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid $colorverde;
+  border-radius: 4px;
+  outline: none;
+  transition: background-color 0.3s;
+}
+
+.interesCompuesto input[type="checkbox"]:checked {
+  background-color: $colorverde;
+}
+
+.interesCompuesto {
+  margin-left: 10px;
+  font-weight: bold;
+  margin-top: 1.5em;
+  border-bottom: 2px solid lightgrey;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.explicacionPlazoFijo {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1em;
+  margin: 2em;
+  margin-bottom: 5em;
+}
+
+.tituloExplicacion {
+  font-size: 1.3em;
+}
+
+.explicacionInteresCompuesto {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1em;
+  margin: 2em;
+  margin-bottom: 5em;
+}
+
+.tituloInteresCompuesto {
+  font-size: 1.3em;
+}
+
+/* FIN plazofijo main */
+
+/*Inicio cuotas mian */
+
+.explicacionImpuesto {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1em;
+  margin: 2em;
+  margin-bottom: 5em;
+}
+
+.tituloExplicacion {
+  font-size: 1.3em;
+}
+
+/*FIN cuotas main*/
