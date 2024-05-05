@@ -1,0 +1,426 @@
+/* calculadoras main */
+.container-box {
+  text-align: center;
+  margin: 1em;
+  margin-bottom: 2em;
+  padding: 2em;
+  border: 5px solid #14805c;
+  border-radius: 1em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.3);
+}
+.container-box h2 {
+  color: #14805c;
+  font-size: 4.5vw;
+  height: auto;
+  font-weight: bold;
+  grid-column: 1/4;
+}
+.container-box .box1,
+.container-box .box2,
+.container-box .box3 {
+  width: auto;
+  border-radius: 1em;
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  transition: 0.5s;
+  color: #14805c;
+  font-weight: bold;
+  margin: 15px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  height: 500px;
+}
+.container-box .box1 h3,
+.container-box .box2 h3,
+.container-box .box3 h3 {
+  color: #14805c;
+  font-size: 2vw;
+  height: auto;
+  font-weight: bold;
+  grid-column: 1/4;
+}
+.container-box .box1:hover {
+  transform: scale(1.02);
+}
+.container-box .box2:hover {
+  transform: scale(1.02);
+}
+.container-box .box3:hover {
+  transform: scale(1.02);
+}
+.container-box .box1 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(../img/fotoSueldoNeto.jpg);
+}
+.container-box .box2 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(../img/fotoPlazoFijo.jpeg);
+}
+.container-box .box3 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(../img/fotoImpuestoGanancias.jpeg);
+}
+.container-box .box1 .boton button {
+  font-weight: 700;
+  color: #14805c;
+  padding: 9px 25px;
+  background-color: #fafafa;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  font-size: 1.2em;
+}
+.container-box .box1 .boton button:hover {
+  transform: scale(1.1);
+}
+.container-box .box2 .boton button {
+  font-weight: 700;
+  color: #14805c;
+  padding: 9px 25px;
+  background-color: #fafafa;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  font-size: 1.2em;
+}
+.container-box .box2 .boton button:hover {
+  transform: scale(1.1);
+}
+.container-box .box3 .boton button {
+  font-weight: 700;
+  color: #14805c;
+  padding: 9px 25px;
+  background-color: #fafafa;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  font-size: 1.2em;
+}
+.container-box .box3 .boton button:hover {
+  transform: scale(1.1);
+}
+
+/* FIN de calculadoras */
+/*Inicio cuotas mian */
+.explicacionImpuesto {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1em;
+  margin: 2em;
+  margin-bottom: 5em;
+}
+
+.tituloExplicacion {
+  font-size: 1.3em;
+}
+
+/*FIN cuotas main*/
+/* Inicio plazofijo main */
+.interesCompuesto input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #14805c;
+  border-radius: 4px;
+  outline: none;
+  transition: background-color 0.3s;
+}
+
+.interesCompuesto input[type=checkbox]:checked {
+  background-color: #14805c;
+}
+
+.interesCompuesto {
+  margin-left: 10px;
+  font-weight: bold;
+  margin-top: 1.5em;
+  border-bottom: 2px solid lightgrey;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.explicacionPlazoFijo {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1em;
+  margin: 2em;
+  margin-bottom: 5em;
+}
+
+.tituloExplicacion {
+  font-size: 1.3em;
+}
+
+.explicacionInteresCompuesto {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1em;
+  margin: 2em;
+  margin-bottom: 5em;
+}
+
+.tituloInteresCompuesto {
+  font-size: 1.3em;
+}
+
+/* FIN plazofijo main */
+/* Inicio sueldoneto main */
+form {
+  margin-bottom: 15px;
+  font-family: Arial, sans-serif;
+}
+
+.containerBox2 {
+  text-align: center;
+  margin: 3em;
+  padding: 1.5em;
+  border-radius: 1em;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  border: 5px solid #14805c;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+.containerBox2 h1 {
+  font-size: 2em;
+  color: #14805c;
+  justify-content: center;
+  padding-bottom: 0.5em;
+  border-bottom: 3px solid #14805c;
+}
+.containerBox2 h2 {
+  font-size: 1.6em;
+  color: #14805c;
+  justify-content: center;
+  padding-bottom: 0.5em;
+  text-decoration: underline;
+}
+.containerBox2 .formulario-box {
+  margin-top: 1.5em;
+  border-bottom: 2px solid lightgrey;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.containerBox2 .sabadoM {
+  color: chocolate;
+}
+.containerBox2 .feriado {
+  color: blue;
+}
+.containerBox2 label {
+  display: inline-block;
+  width: 200px;
+  font-weight: bold;
+}
+
+/* Estilo para los resultados */
+.resultados h2 {
+  font-size: 1.6em;
+  color: #14805c;
+  justify-content: center;
+  padding-bottom: 0.5em;
+  text-decoration: underline;
+}
+.resultados div {
+  margin-bottom: 10px;
+}
+.resultados label {
+  font-weight: bold;
+}
+.resultados span {
+  font-weight: normal;
+  margin-left: 10px;
+}
+.resultados p {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Estilo para los resultados span con ID sabadoM y feriado */
+#sabadoM,
+#feriado {
+  font-style: italic;
+}
+
+select,
+input[type=number],
+input[type=radio],
+button {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.boton4 {
+  font-weight: 700;
+  color: #fafafa;
+  padding: 12px 35px;
+  background-color: #14805c;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.boton4:hover {
+  transform: scale(1.1);
+}
+
+/* FIN sueldoneto main */
+/* Media Querys */
+@media only screen and (max-width: 1200px) {
+  header {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  header nav ul {
+    gap: 20px;
+  }
+  header nav ul li a {
+    font-size: 2.5vw;
+  }
+  .container p {
+    font-size: 1.2em;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  footer {
+    font-size: 1.2em;
+  }
+  footer img {
+    width: 2em;
+    height: auto;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  main .container-box {
+    display: flex;
+    flex-direction: column;
+  }
+  .container-box .box1,
+  .container-box .box2,
+  .container-box .box3 {
+    height: 250px;
+    width: auto;
+  }
+  .container-box .box1 h3,
+  .container-box .box2 h3,
+  .container-box .box3 h3 {
+    font-size: 4vw;
+  }
+}
+@media (min-width: 977px) {
+  #sectionInformacion {
+    display: flex;
+    justify-content: center;
+    height: 70vh;
+  }
+  #containerInformacion {
+    display: contents;
+    align-items: center;
+  }
+  #containerInformacion .dolar {
+    padding: 9em;
+    margin: 2em;
+    background-position: center;
+  }
+  #containerInformacion .pesos {
+    padding: 9em;
+    margin: 2em;
+    background-position: center;
+  }
+}
+@media only screen and (max-width: 960px) {
+  .container p {
+    font-size: 1em;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .Mercadopago {
+    width: 7em;
+    height: auto;
+  }
+}
+@media (max-width: 768px) {
+  .item-iframe {
+    width: 11em;
+    height: 13em;
+  }
+}
+@media only screen and (max-width: 650px) {
+  header a img {
+    height: 4vh;
+  }
+  header nav ul {
+    gap: 15px;
+  }
+  header nav ul li a {
+    font-size: 3vw;
+  }
+  .containerBox2 {
+    margin: 1em;
+  }
+  .financial-main {
+    margin: 1em;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .container p {
+    font-size: 0.8em;
+  }
+  main .container-box h2 {
+    font-size: 7vw;
+  }
+  .box1,
+  .box2,
+  .box3 {
+    height: 150px;
+    font-size: 0.8em;
+  }
+}
+@media (max-width: 480px) {
+  .item-iframe {
+    width: 8.5em;
+    height: 13em;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .footer-finantips {
+    width: 55vw;
+    height: auto;
+    margin: 20px;
+  }
+  .footer-left,
+  .footer-right {
+    margin: 20px;
+  }
+  header nav ul li a {
+    font-size: 0.8em;
+  }
+}
+@media (max-width: 413px) {
+  .containerBox3 {
+    text-align: left;
+    margin: 4em;
+    padding: 1.5em;
+    border: 5px solid #14805c;
+    border-radius: 1em;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */

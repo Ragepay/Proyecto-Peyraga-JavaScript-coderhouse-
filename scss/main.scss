@@ -1,0 +1,16 @@
+// Imoportacion de modulos con @import para poder utilizar variables y mixins.
+
+//Variables.
+@import 'utilities/variables';
+
+//mixins.
+@import 'utilities/mixins';
+
+//pages
+@import 'pages/index';
+@import 'pages/cuotas';
+@import 'pages/plazofijo';
+@import 'pages/sueldoneto';
+
+//media querys
+@import 'utilities/mediaquerys';
