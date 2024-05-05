@@ -1,0 +1,98 @@
+/* calculadoras main */
+
+.container-box {
+
+    text-align: center;
+    margin: 1em;
+    margin-bottom: 2em;
+    padding: 2em;
+    border: 5px solid #14805c;
+    border-radius: 1em;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1),
+                  0 0 20px rgba(0, 0, 0, 0.2),
+                  0 0 30px rgba(0, 0, 0, 0.3);
+  
+    h2 {
+      color: #14805c;
+      font-size: 4.5vw;
+      height: auto;
+      font-weight: bold;
+      grid-column: 1/4
+    }
+  
+    .box1,
+    .box2,
+    .box3 {
+      @include box;
+      height: 500px;
+  
+      h3{
+        color: #14805c;
+      font-size: 2vw;
+      height: auto;
+      font-weight: bold;
+      grid-column: 1/4
+      }
+    }
+  
+    .box1:hover {
+      @include boxhover;
+    }
+  
+    .box2:hover {
+      @include boxhover;
+    }
+  
+    .box3:hover {
+      @include boxhover;
+    }
+  
+    .box1 {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+        url(../img/fotoSueldoNeto.jpg);
+  
+    }
+  
+  
+    .box2 {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+        url(../img/fotoPlazoFijo.jpeg);
+  
+    }
+  
+    .box3 {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+        url(../img/fotoImpuestoGanancias.jpeg);
+  
+    }
+  
+    .box1 .boton button {
+      @include boxboton;
+  
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  
+    .box2 .boton button {
+      @include boxboton;
+  
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  
+    .box3 .boton button {
+      @include boxboton;
+  
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  
+  }
+  
+  /* FIN de calculadoras */
