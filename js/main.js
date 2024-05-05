@@ -184,7 +184,7 @@ function habilitarInput() {
 
 function Comparar() {
     let precioContado = parseFloat(document.getElementById("contado").value);
-    let precioCuotas = parseFloat(document.getElementById("cuotas").value);
+    let precioCuotas = parseFloat(document.getElementById("financiado").value);
     let cantidadCuotas = parseInt(document.getElementById("cantcuotas").value);
     let tnaPlazoFijo = parseFloat(document.getElementById("TNA").value);
     let comentario = " ";
@@ -210,11 +210,11 @@ function Comparar() {
     
     if (precioContado < precioCuotas){
         // Te conviene precio Contado.
-        comentario = "Te conviene comprar al contado/efectivo."
+        comentario = "Te conviene comprar al contado/efectivo.";
         
     } else{
         // Te conviene precio Financiado.
-        comentario = "Te conviene comprar en cuotas sin interes."
+        comentario = "Te conviene comprar en cuotas sin interes.";
     }
 
     // Muestra los resultados
@@ -224,12 +224,14 @@ function Comparar() {
     resultadoHTML += "<p>" + comentario + "</p>";
     
     document.getElementById("resultado").innerHTML = resultadoHTML;
+    
 }
+
 
 function calcularPlazoFijo() {
 
     // Obtener los valores ingresados por el usuario.
-    let monto = parseFloat(document.getElementById("inputMonto").value);
+    let capital = parseFloat(document.getElementById("inputMonto").value);
     let tasaInteres = parseFloat(document.getElementById("inputTasaInteres").value);
     let meses = parseInt(document.getElementById("inputMeses").value);
     let interesCompuesto = document.getElementById("inputInteresCompuesto").checked;
@@ -237,11 +239,11 @@ function calcularPlazoFijo() {
   
     // Calcular las ganancias.
     if (interesCompuesto) {
-      ganancias = monto * Math.pow((tasaInteres / 365 * 30 / 100 + 1), meses) - monto;
+      ganancias = capital * Math.pow((tasaInteres / 365 * 30 / 100 + 1), meses) - capital;
     } else {
-      ganancias = monto * (tasaInteres / 365) * (meses * 30) / 100;
+      ganancias = capital * (tasaInteres / 365) * (meses * 30) / 100;
     }
-    let montoTotal = monto + ganancias;
+    let montoTotal = capital + ganancias;
   
     // Mostrar los resultados.
     document.getElementById("ganancias").textContent = " $ " + ganancias.toFixed(2);
