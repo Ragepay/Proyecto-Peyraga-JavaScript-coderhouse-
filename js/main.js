@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function calcularSueldo() {
-    const AUMENTO = 1.00;
+    const AUMENTO = 1.2248;
     let tm16m = 918760 * AUMENTO;
     let tm712m = 1050120 * AUMENTO;
     let tm1 = 1266784 * AUMENTO;
