@@ -11,11 +11,6 @@
 
 <body>
     <header>
-
-    </header>
-
-    <main>
-
         <section class="container-box">
 
             <h2>Calculadoras Financieras</h2>
@@ -33,9 +28,16 @@
             <div class="box3">
                 <h3>Cuotas/Efectivo</h3>
                 <a href="#cuotas" class="boton"><button>calcular</button></a>
-            </div>"
+            </div>
+
+
 
         </section>
+    </header>
+
+    <main>
+
+
 
         <section id="sueldoneto">
 
@@ -71,13 +73,11 @@
                     <div class="formulario-box">
                         <label>PRODUCTIVIDAD:</label>
                         <div>
-                            <input type="radio" id="productividadSi" name="productividad" value="si"
-                                onchange="calcularSueldo()">
+                            <input type="radio" id="productividadSi" name="productividad" value="si">
                             <label for="productividadSi">Sí</label>
                         </div>
                         <div>
-                            <input type="radio" id="productividadNo" name="productividad" value="no"
-                                onchange="calcularSueldo()">
+                            <input type="radio" id="productividadNo" name="productividad" value="no">
                             <label for="productividadNo">No</label>
                         </div>
                     </div>
@@ -85,13 +85,11 @@
                     <div class="formulario-box">
                         <label>PRESENTISMO:</label>
                         <div>
-                            <input type="radio" id="presentismoSi" name="presentismo" value="si"
-                                onchange="calcularSueldo()">
+                            <input type="radio" id="presentismoSi" name="presentismo" value="si">
                             <label for="presentismoSi">Sí</label>
                         </div>
                         <div>
-                            <input type="radio" id="presentismodNo" name="presentismo" value="no"
-                                onchange="calcularSueldo()">
+                            <input type="radio" id="presentismodNo" name="presentismo" value="no">
                             <label for="presentismoNo">No</label>
                         </div>
                     </div>
@@ -120,12 +118,6 @@
                         <label for="horas-nocturnas">Horas nocturnas:</label>
                         <input type="number" id="horas-nocturnas" name="horas-nocturnas">
                     </div>
-                    <!--<input type="radio" id="horas-nocturnas" name="horas-nocturnas" value="si">
-            <label for="horas-nocturnas">T. Naranja</label>
-            <input type="radio" id="horas-nocturnas" name="horas-nocturnas" value="si">
-            <label for="horas-nocturnas">T. Blanco</label>
-            <input type="radio" id="horas-nocturnas" name="horas-nocturnas" value="si">
-            <label for="horas-nocturnas">T. Amarillo</label> -->
 
                     <div class="formulario-box">
                         <button class="boton4" type="button" onclick="calcularSueldo()">Calcular Sueldo</button>
@@ -153,14 +145,17 @@
                             <span id="feriado"></span>
                         </div>
 
+                        <!-- Historial de cálculos -->
+                        <h2>Historial de Cálculos</h2>
+                        <ol id="historial"></ol>
+
+                        <button class="boton4" onclick="clearHistorial()">Eliminar Historial</button>
+
+
                     </div>
-
-
-                    <!--<label for="ganancias">Ganancias:</label>
-            <span id="gananciasResultado"></span>-->
                 </form>
         </section>
-
+        <!-- 
         <section id="plazofijo">
 
             <div class="containerBox2">
@@ -205,51 +200,53 @@
             </div>
 
         </section>
-
-    </main>
-
+    -->
+        <!-- 
     <section id="cuotas">
         <div class="containerBox2">
-  
-          <h1>Calculadora Comparativa</h1>
-  
-          <form>
-  
-            <h2>Efectivo</h2>
-  
-            <div class="formulario-box">
-              <label for="contado">Precio al Contado:</label>
-              <input type="number" id="contado" step="0.01" required>
-            </div>
-  
-            <h2> VS </h2>
-  
-            <h2>Cuotas S/Interés</h2>
-  
-            <div class="formulario-box">
-              <label for="financiado">Precio total en cuotas:</label>
-              <input type="number" id="financiado">
-            </div>
-  
-            <div class="formulario-box">
-              <label for="cantcuotas">Cantidad de Cuotas S/I:</label>
-              <input type="number" id="cantcuotas">
-            </div>
-  
-            <div class="formulario-box">
-              <label for="TNA">TNA Plazo Fijo:</label>
-              <input type="number" id="TNA">
-            </div>
-  
-            <button type="button" onclick="Comparar()" class="boton4">Calcular</button>
-          </form>
-          <div class="resultados" id="resultado"></div>
+
+            <h1>Calculadora Comparativa</h1>
+
+            <form>
+
+                <h2>Efectivo</h2>
+
+                <div class="formulario-box">
+                    <label for="contado">Precio al Contado:</label>
+                    <input type="number" id="contado" step="0.01" required>
+                </div>
+
+                <h2> VS </h2>
+
+                <h2>Cuotas S/Interés</h2>
+
+                <div class="formulario-box">
+                    <label for="financiado">Precio total en cuotas:</label>
+                    <input type="number" id="financiado">
+                </div>
+
+                <div class="formulario-box">
+                    <label for="cantcuotas">Cantidad de Cuotas S/I:</label>
+                    <input type="number" id="cantcuotas">
+                </div>
+
+                <div class="formulario-box">
+                    <label for="TNA">TNA Plazo Fijo:</label>
+                    <input type="number" id="TNA">
+                </div>
+
+                <button type="button" onclick="Comparar()" class="boton4">Calcular</button>
+            </form>
+            <div class="resultados" id="resultado"></div>
         </div>
-      </section>
+    </section>
+    -->
+    </main>
 
     <footer>
-
+        <p>Todos los derechos reservados © 2024</p>
     </footer>
+
 
 
 </body>

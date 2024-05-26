@@ -1,6 +1,10 @@
+document.addEventListener('DOMContentLoaded', () => {
+    loadInputsFromLocalStorage();
+    loadResultsFromLocalStorage();
+    loadHistorialFromLocalStorage();
+});
+
 function calcularSueldo() {
-    
-    // Declaracion de variables que van a ser actualizadas.
     const AUMENTO = 1.00;
     let tm16m = 918760 * AUMENTO;
     let tm712m = 1050120 * AUMENTO;
@@ -16,29 +20,22 @@ function calcularSueldo() {
     let constante192 = 192.025294117647;
     let a = constante192;
 
-    // Declaracion Variables.
     let categoria = document.getElementById("categoria").value;
     let base;
-
     let sueldoBase;
     let sueldoBruto;
     let sueldoNeto;
-
     let horas50;
     let horas100;
     let horas200;
     let horasNocturnas;
-
     let antiguedad;
     let antiguedadTotal = 0;
 
-
-    // Calcular el sueldo neto y las ganancias según la categoría
     switch (categoria) {
         case "T/M 0-6":
             sueldoBase = tm16m;
             base = parseFloat(tm16m);
-
             break;
         case "T/M 7-12":
             sueldoBase = tm712m;
@@ -85,25 +82,31 @@ function calcularSueldo() {
             if (isNaN(sueldoBase)) {
                 sueldoBase = 0;
             }
-            base = 0
+            base = 0;
     }
 
+    saveInputsToLocalStorage({
+        categoria,
+        antiguedad: document.getElementById("antigüedad").value,
+        horas50: document.getElementById("horas-50").value,
+        horas100: document.getElementById("horas-100").value,
+        horas200: document.getElementById("horas-200").value,
+        horasNocturnas: document.getElementById("horas-nocturnas").value,
+        productividad: document.querySelector('input[name="productividad"]:checked').value,
+        presentismo: document.querySelector('input[name="presentismo"]:checked').value
+    });
 
-    // Productividad y presentismo
     let radioProductividadSi = document.getElementById("productividadSi");
     let radioPresentismoSi = document.getElementById("presentismoSi");
 
     if ((radioProductividadSi.checked) && (radioPresentismoSi.checked)) {
-        // Si se seleccionó "Sí", incrementar sueldoBase en un 30%
         sueldoBase *= 1.281;
     } else if ((radioProductividadSi.checked) || (radioPresentismoSi.checked)) {
         sueldoBase *= 1.1405;
-
     } else {
         sueldoBase = sueldoBase;
     }
 
-    // Antiguedad
     antiguedad = parseFloat(document.getElementById("antigüedad").value);
     if (isNaN(antiguedad)) {
         antiguedad = 0;
@@ -113,7 +116,6 @@ function calcularSueldo() {
         antiguedadTotal = base * (0.04 + 0.01 * (antiguedad - 1));
     }
 
-    // Horas Extra
     horas50 = parseFloat(document.getElementById("horas-50").value);
     horas100 = parseFloat(document.getElementById("horas-100").value);
     horas200 = parseFloat(document.getElementById("horas-200").value);
@@ -132,18 +134,15 @@ function calcularSueldo() {
         horasNocturnas = 0;
     }
 
-
     let horas50Total = horas50 * ((base / a) * (1.5) * (1.04 + 0.01 * (antiguedad - 1)));
     let horas100Total = horas100 * ((base / a) * (2) * (1.04 + 0.01 * (antiguedad - 1)));
     let horas200Total = horas200 * ((base / a) * (4) * (1.04 + 0.01 * (antiguedad - 1)));
     let horasNocturnasTotal = horasNocturnas * (base / a) * 0.36 * (1.04 + 0.01 * (antiguedad - 1));
 
-
-    // Calcular el sueldo bruto
     if (antiguedad == 0) {
         horas50Total = horas50 * (base / a) * (1.5);
         horas100Total = horas100 * (base / a) * (2);
-        horas200Total = horas100 * (base / a) * (4);
+        horas200Total = horas200 * (base / a) * (4);
         horasNocturnasTotal = horasNocturnas * (base / a) * 0.36;
     }
 
@@ -151,24 +150,125 @@ function calcularSueldo() {
     let sabadoM = (7 * ((base / a) * (1.5) * (1.04 + 0.01 * (antiguedad - 1)))) + (1.5 * ((base / a) * (4) * (1.04 + 0.01 * (antiguedad - 1))));
     let feriado = 8.5 * (((base / a) * (4) * (1.04 + 0.01 * (antiguedad - 1))));
 
-
-    // Sueldo Neto
-    //208.174,81 Es el maximo de aportes de jubilacion(Abril-Mayo-Junio 24') y es el 11%.
-    //Bruto maximo: 1.892.498,29 para llegar a los aportes maximos
-
     if (sueldoBruto <= 1892498.29) {
         sueldoNeto = sueldoBruto * 0.79;
     } else {
         sueldoNeto = sueldoBruto - (1892498 * 0.21);
     }
 
-
-    // Mostrar los resultados en el formulario.
     document.getElementById("sueldoBrutoResultado").innerText = sueldoBruto.toFixed(2);
     document.getElementById("sueldoNetoResultado").innerText = sueldoNeto.toFixed(2);
     document.getElementById("sabadoM").innerText = sabadoM.toFixed(2);
     document.getElementById("feriado").innerText = feriado.toFixed(2);
 
+    let results = {
+        sueldoBruto: sueldoBruto.toFixed(2),
+        sueldoNeto: sueldoNeto.toFixed(2),
+        sabadoM: sabadoM.toFixed(2),
+        feriado: feriado.toFixed(2)
+    };
+
+    saveResultsToLocalStorage(results);
+    addToHistorial(results);
+    saveHistorialToLocalStorage();
+}
+
+function saveInputsToLocalStorage(inputs) {
+    localStorage.setItem('categoria', inputs.categoria);
+    localStorage.setItem('antiguedad', inputs.antiguedad);
+    localStorage.setItem('horas50', inputs.horas50);
+    localStorage.setItem('horas100', inputs.horas100);
+    localStorage.setItem('horas200', inputs.horas200);
+    localStorage.setItem('horasNocturnas', inputs.horasNocturnas);
+    localStorage.setItem('productividad', inputs.productividad);
+    localStorage.setItem('presentismo', inputs.presentismo);
+}
+
+function loadInputsFromLocalStorage() {
+    if (localStorage.getItem('categoria')) {
+        document.getElementById('categoria').value = localStorage.getItem('categoria');
+    }
+    if (localStorage.getItem('antiguedad')) {
+        document.getElementById('antigüedad').value = localStorage.getItem('antiguedad');
+    }
+    if (localStorage.getItem('horas50')) {
+        document.getElementById('horas-50').value = localStorage.getItem('horas50');
+    }
+    if (localStorage.getItem('horas100')) {
+        document.getElementById('horas-100').value = localStorage.getItem('horas100');
+    }
+    if (localStorage.getItem('horas200')) {
+        document.getElementById('horas-200').value = localStorage.getItem('horas200');
+    }
+    if (localStorage.getItem('horasNocturnas')) {
+        document.getElementById('horas-nocturnas').value = localStorage.getItem('horasNocturnas');
+    }
+    if (localStorage.getItem('productividad') === 'si') {
+        document.getElementById('productividadSi').checked = true;
+    } else {
+        document.getElementById('productividadNo').checked = true;
+    }
+    if (localStorage.getItem('presentismo') === 'si') {
+        document.getElementById('presentismoSi').checked = true;
+    } else {
+        document.getElementById('presentismoNo').checked = true;
+    }
+}
+
+function saveResultsToLocalStorage(results) {
+    localStorage.setItem('sueldoBruto', results.sueldoBruto);
+    localStorage.setItem('sueldoNeto', results.sueldoNeto);
+    localStorage.setItem('sabadoM', results.sabadoM);
+    localStorage.setItem('feriado', results.feriado);
+}
+
+function loadResultsFromLocalStorage() {
+    if (localStorage.getItem('sueldoBruto')) {
+        document.getElementById('sueldoBrutoResultado').innerText = localStorage.getItem('sueldoBruto');
+    }
+    if (localStorage.getItem('sueldoNeto')) {
+        document.getElementById('sueldoNetoResultado').innerText = localStorage.getItem('sueldoNeto');
+    }
+    if (localStorage.getItem('sabadoM')) {
+        document.getElementById('sabadoM').innerText = localStorage.getItem('sabadoM');
+    }
+    if (localStorage.getItem('feriado')) {
+        document.getElementById('feriado').innerText = localStorage.getItem('feriado');
+    }
+}
+
+function addToHistorial(results) {
+    const historial = document.getElementById('historial');
+    const item = document.createElement('li');
+    item.textContent = `Sueldo Bruto: ${results.sueldoBruto}, Sueldo Neto: ${results.sueldoNeto}, Sabado M: ${results.sabadoM}, Feriado: ${results.feriado}`;
+    historial.appendChild(item);
+}
+
+function saveHistorialToLocalStorage() {
+    const historial = document.getElementById('historial');
+    const historialItems = [];
+    for (let i = 0; i < historial.children.length; i++) {
+        historialItems.push(historial.children[i].textContent);
+    }
+    localStorage.setItem('historial', JSON.stringify(historialItems));
+}
+
+function loadHistorialFromLocalStorage() {
+    const historialItems = JSON.parse(localStorage.getItem('historial'));
+    if (historialItems) {
+        const historial = document.getElementById('historial');
+        historial.innerHTML = '';
+        historialItems.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            historial.appendChild(li);
+        });
+    }
+}
+
+function clearHistorial() {
+    localStorage.removeItem('historial');
+    document.getElementById('historial').innerHTML = '';
 }
 
 function habilitarInput() {
@@ -181,6 +281,19 @@ function habilitarInput() {
         datoInput.disabled = false;
     }
 }
+
+
+
+// Funciones de tu calculadora aquí...
+
+// Cargar datos del Local Storage al cargar la página
+window.onload = function() {
+    loadInputsFromLocalStorage();
+    loadResultsFromLocalStorage();
+    loadHistorialFromLocalStorage();
+}
+
+/*
 
 function Comparar() {
     let precioContado = parseFloat(document.getElementById("contado").value);
@@ -249,6 +362,6 @@ function calcularPlazoFijo() {
     document.getElementById("ganancias").textContent = " $ " + ganancias.toFixed(2);
     document.getElementById("montoTotal").textContent = " $ " + montoTotal.toFixed(2);
     console.log(ganancias +" "+ montoTotal);
-  }
+}
 
-  
+*/

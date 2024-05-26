@@ -11,7 +11,7 @@ html {
   padding: 2em;
   border: 5px solid #14805c;
   border-radius: 1em;
-  display: grid;
+  /*display: grid;*/
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1),
@@ -39,6 +39,10 @@ html {
       font-weight: bold;
       grid-column: 1/4
     }
+  }
+
+  .box2, .box3 {
+    display: none;
   }
 
   .box1:hover {
