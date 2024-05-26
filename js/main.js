@@ -284,7 +284,7 @@ function habilitarInput() {
 
 
 
-// Funciones de tu calculadora aquí...
+
 
 // Cargar datos del Local Storage al cargar la página
 window.onload = function() {
