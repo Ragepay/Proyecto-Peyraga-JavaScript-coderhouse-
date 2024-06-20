@@ -279,6 +279,77 @@ button {
   transform: scale(1.1);
 }
 
+/* Estilos para la tabla de resultados */
+.ResultadosCalculo {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.ResultadosCalculo th, .ResultadosCalculo td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #dddddd;
+}
+
+.ResultadosCalculo thead {
+  background-color: #f2f2f2;
+}
+
+.ResultadosCalculo th {
+  text-align: center;
+  background-color: #14805c;
+  color: white;
+  border: 1px solid #dddddd;
+}
+
+.ResultadosCalculo tbody td {
+  text-align: right;
+}
+
+.ResultadosCalculo tfoot {
+  background-color: #f2f2f2;
+}
+
+.ResultadosCalculo tfoot td {
+  text-align: right;
+  font-weight: bold;
+}
+
+.ResultadosCalculo tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.ResultadosCalculo tbody tr:hover {
+  background-color: #e0e0e0;
+}
+
+.ResultadosCalculo td[colspan="2"] {
+  font-weight: bold;
+  text-align: right;
+  background-color: #f2f2f2;
+}
+
+.ResultadosCalculo td:nth-child(3), .ResultadosCalculo td:nth-child(4) {
+  font-weight: normal;
+  text-align: right;
+}
+
+.footer {
+  background-color: #333;
+  color: #fafafa;
+  text-align: center;
+  padding: 30px;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer p {
+  margin: 0;
+}
+
 /* FIN sueldoneto main */
 /* Inicio plazofijo main */
 .interesCompuesto input[type=checkbox] {

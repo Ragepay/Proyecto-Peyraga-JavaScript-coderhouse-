@@ -21,9 +21,9 @@ let minimoImponible = minimoNoImponible + deduccionEspecial;
 const valesComedorTotal = 22 * 827;
 //----------------------------------------------------------------------------------
 
-// Declaracion de array y id.
-const recibos = JSON.parse(localStorage.getItem('recibos')) || [];
-let id = recibos.length > 0 ? recibos[recibos.length - 1].id + 1 : 1;
+// Declaracion de array y obtencion de elementos guardados en localStorage.
+let recibos = JSON.parse(localStorage.getItem('recibos')) || [];
+
 
 
 
@@ -280,9 +280,10 @@ function calcularSueldo() {
     }
 
     //  Creacion del Objeto literal y despues se almacena en el array de objetos.
+    let id = Date.now();
     const recibo = new ReciboSueldo(id, sueldoBase, calcularPresentismo(), calcularProductividad(), horasNocturnasTotal, horas50Total, horas200Total, antiguedadTotal, valesComedorTotal, jubilacion, ley, obraSocial, sindicatoTotal, sueldoBruto, sueldoNeto, sabadoM, feriado, new Date().toLocaleString())
-    id += 1;
-    recibos.unshift(recibo);
+    console.log(recibo);
+    recibos.push(recibo);
 
     //  Almacenamos el array de objetos en el localStorage.
     localStorage.setItem("recibos", JSON.stringify(recibos));
@@ -390,58 +391,119 @@ function mostrarHistorialRecibos() {
     if (recibos.length === 0) {
         historialHTML += '<p>No hay recibos calculados.</p>';
     } else {
-        historialHTML += '<table class"HistorialRecibos">';
-        historialHTML += `
-            <thead>
-                <tr>
-                    <th>N°</th>
-                    <th>Fecha de Cálculo</th>
-                    <th>Sueldo Bruto</th>
-                    <th>Sueldo Neto</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-        `;
+        historialHTML += '<table class="ResultadosCalculo">';
         recibos.forEach(recibo => {
-            historialHTML += `
+            historialHTML += `<thead>
                 <tr>
-                    <td>${recibo.id}</td>
-                    <td>${recibo.fechaHorario}</td>
-                    <td>${recibo.sueldoBruto.toFixed(2)}</td>
-                    <td>${recibo.sueldoNeto.toFixed(2)}</td>
-                    <td><button class="eliminar-recibo" onclick="eliminarRecibo(${recibo.id})"><img src="/img/basurero.png" alt="Eliminar"></button></td>
+                    <th colspan="2">Descripción</th>
+                    <th>Haberes</th>
+                    <th>Deducciones</th>
                 </tr>
+                </thead>
+            <tbody>
+            <tr>
+                <td colspan="2">Salario Base</td>
+                <td>${recibo.salarioBase.toFixed(2)}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">Presentismo</td>
+                <td>${recibo.presentismo.toFixed(2)}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">Productividad</td>
+                <td>${recibo.productividad.toFixed(2)}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">Horas Nocturnas</td>
+                <td>${recibo.horasNocturnas.toFixed(2)}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">Horas 50%</td>
+                <td>${recibo.horas50.toFixed(2)}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">Horas 200%</td>
+                <td>${recibo.horas200.toFixed(2)}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">Antigüedad</td>
+                <td>${recibo.antiguedad.toFixed(2)}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">Vales de Comedor</td>
+                <td>${recibo.retencionValesComedor.toFixed(2)}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">Jubilación</td>
+                <td></td>
+                <td>${recibo.jubilacion.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td colspan="2">Ley 19032</td>
+                <td></td>
+                <td>${recibo.ley.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td colspan="2">Obra Social</td>
+                <td></td>
+                <td>${recibo.obraSocial.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td colspan="2">SMATA</td>
+                <td></td>
+                <td>${recibo.aporteSindical.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td >Sueldo Bruto</td>
+                <td colspan="2">${recibo.sueldoBruto.toFixed(2)}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td >Sueldo Neto</td>
+                <td colspan="2">${recibo.sueldoNeto.toFixed(2)}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="4"><button class="eliminar-recibo" onclick="eliminarRecibo(${recibo.id})" style="text-align: center;"><img src="/img/basurero.png" alt="Eliminar" style="text-align: center;"></button></td>
+            </tr>
+            </tbody>
             `;
         });
-        historialHTML += ` 
-            <tr>
-                <td colspan="4" style="text-align: center;">
-                    <button class="eliminar-historial" onclick="eliminarHistorial()">Eliminar Historial</button>
-                </td>
-            </tr>
-            </tbody ></table>`;
+        historialHTML += `
+            </tbody>
+            </table> 
+                    <div>
+                        <button class="eliminar-historial" onclick="eliminarHistorial()">Eliminar Historial</button>
+                    </div>`;
     }
     document.getElementById('historial-recibos').innerHTML = historialHTML;
 }
 
-// Función para eliminar un recibo del historial.
+
 function eliminarRecibo(id) {
     // Filtrar el array recibos para excluir el recibo con el ID dado.
-    recibos = recibos.filter(recibo => recibo.id !== id); 
+    recibos = recibos.filter(recibo => recibo.id !== id);
+    console.log("Recibos después de eliminar:", recibos);
 
     // Actualizar el localStorage con el nuevo array de recibos.
     localStorage.setItem('recibos', JSON.stringify(recibos));
 
     // Volver a mostrar el historial actualizado.
     mostrarHistorialRecibos();
-    location.reload()
 }
 
-// Función para eliminar historial de recibos.
+
 function eliminarHistorial() {
     let confirmacionElimianrHisotrial = confirm("¿ Desea eliminar el historial ?");
-    if (confirmacionElimianrHisotrial == true){
+    if (confirmacionElimianrHisotrial == true) {
         localStorage.removeItem("recibos");
         alert('Historial eliminado correctamente.');
     } else {
@@ -451,10 +513,6 @@ function eliminarHistorial() {
     mostrarHistorialRecibos();
     location.reload()
 }
-
-/*// Agregar evento al botón para que llame a la función eliminarHistorial
-document.querySelector('.eliminar-historial').addEventListener('click', eliminarHistorial);
-*/
 
 function habilitarInput() {
     categoria = document.getElementById("categoria");
@@ -466,23 +524,10 @@ function habilitarInput() {
     } else {
         datoInput.disabled = false;
     }
-    
+
 }
 
 // Llamar a mostrarHistorialRecibos al cargar la página
 document.addEventListener('DOMContentLoaded', function () {
     mostrarHistorialRecibos();
 });
-
-
-
-/*
-        document.getElementById("sueldoBrutoResultado").innerText = sueldoBruto.toFixed(2);
-        document.getElementById("jubilacionResultado").innerText = - jubilacion.toFixed(2);
-        document.getElementById("leyResultado").innerText = - ley.toFixed(2);
-        document.getElementById("obraSocialResultado").innerText = - obraSocial.toFixed(2);
-        document.getElementById("sindicatoResultado").innerText = - sindicatoTotal.toFixed(2);
-        document.getElementById("sueldoNetoResultado").innerText = sueldoNeto.toFixed(2);
-        document.getElementById("sabadoM").innerText = sabadoM.toFixed(2);
-        document.getElementById("feriado").innerText = feriado.toFixed(2);
-*/

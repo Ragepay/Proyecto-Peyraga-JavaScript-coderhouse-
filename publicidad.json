@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "titulo": "Venta de bicicleta de montaña",
+        "imagen": "https://example.com/images/bicicleta.jpg",
+        "contacto": "contacto1@example.com"
+    },
+    {
+        "id": 2,
+        "titulo": "Alquiler de apartamento en la playa",
+        "imagen": "https://example.com/images/apartamento.jpg",
+        "contacto": "contacto2@example.com"
+    },
+    {
+        "id": 3,
+        "titulo": "Venta de coche usado",
+        "imagen": "https://example.com/images/coche.jpg",
+        "contacto": "contacto3@example.com"
+    },
+    {
+        "id": 4,
+        "titulo": "Clases particulares de matemáticas",
+        "imagen": "https://example.com/images/clases.jpg",
+        "contacto": "contacto4@example.com"
+    },
+    {
+        "id": 5,
+        "titulo": "Servicio de jardinería",
+        "imagen": "https://example.com/images/jardineria.jpg",
+        "contacto": "contacto5@example.com"
+    },
+    {
+        "id": 6,
+        "titulo": "Venta de laptop nueva",
+        "imagen": "https://example.com/images/laptop.jpg",
+        "contacto": "contacto6@example.com"
+    },
+    {
+        "id": 7,
+        "titulo": "Servicios de fotografía para eventos",
+        "imagen": "https://example.com/images/fotografia.jpg",
+        "contacto": "contacto7@example.com"
+    },
+    {
+        "id": 8,
+        "titulo": "Alquiler de coche para bodas",
+        "imagen": "https://example.com/images/coche_boda.jpg",
+        "contacto": "contacto8@example.com"
+    }
+]
