@@ -18,7 +18,7 @@ const hijo = 128702.8;
 let minimoImponible = minimoNoImponible + deduccionEspecial;
 
 //  Retencion vales de comedro.
-const valesComedorTotal = 22 * 450;
+const valesComedorTotal = 22 * 827;
 //----------------------------------------------------------------------------------
 
 // Declaracion de array y id.
@@ -258,7 +258,7 @@ function calcularSueldo() {
     //  Creacion de los Objetos "reciboSueldo" por propiedad que ingrese, para poder almacenar y mostar por localstorage.
 
 
-    function ReciboSueldo(id, salarioBase, presentismo, produtivdad, horasNocturnas, horas50, horas200, antiguedad, retencionValesComedor, jubilacion, ley, obraSocial, aporteSindical, sueldoBruto, sueldoNeto, sabadoM, feriado) {
+    function ReciboSueldo(id, salarioBase, presentismo, produtivdad, horasNocturnas, horas50, horas200, antiguedad, retencionValesComedor, jubilacion, ley, obraSocial, aporteSindical, sueldoBruto, sueldoNeto, sabadoM, feriado, fechaHorario) {
         this.id = id;
         this.salarioBase = salarioBase;
         this.presentismo = presentismo;
@@ -276,12 +276,13 @@ function calcularSueldo() {
         this.sueldoNeto = sueldoNeto;
         this.sabadoM = sabadoM;
         this.feriado = feriado;
+        this.fechaHorario = fechaHorario;
     }
 
     //  Creacion del Objeto literal y despues se almacena en el array de objetos.
-    const recibo = new ReciboSueldo(id, sueldoBase, calcularPresentismo(), calcularProductividad(), horasNocturnasTotal, horas50Total, horas200Total, antiguedadTotal, valesComedorTotal, jubilacion, ley, obraSocial, sindicatoTotal, sueldoBruto, sueldoNeto, sabadoM, feriado)
+    const recibo = new ReciboSueldo(id, sueldoBase, calcularPresentismo(), calcularProductividad(), horasNocturnasTotal, horas50Total, horas200Total, antiguedadTotal, valesComedorTotal, jubilacion, ley, obraSocial, sindicatoTotal, sueldoBruto, sueldoNeto, sabadoM, feriado, new Date().toLocaleString())
     id += 1;
-    recibos.push(recibo);
+    recibos.unshift(recibo);
 
     //  Almacenamos el array de objetos en el localStorage.
     localStorage.setItem("recibos", JSON.stringify(recibos));
@@ -289,7 +290,7 @@ function calcularSueldo() {
     // Mostrar los resultados en el formulario.
     function mostrarResultados() {
         document.getElementById("resultados").innerHTML = `
-    <table>
+    <table class="ResultadosCalculo">
         <thead>
             <tr>
                 <th colspan="2">Descripción</th>
@@ -372,7 +373,9 @@ function calcularSueldo() {
             </tr>
         </tfoot>
     </table>`;
-        }
+    }
+    document.getElementById("sabadoM").innerText = sabadoM.toFixed(2);
+    document.getElementById("feriado").innerText = feriado.toFixed(2);
 
     mostrarResultados()
     mostrarHistorialRecibos();
@@ -381,18 +384,21 @@ function calcularSueldo() {
 
 // Función para mostrar el historial de recibos
 function mostrarHistorialRecibos() {
-    let historialHTML = '<h2>Historial de recibos de sueldo</h2>';
+
+    let historialHTML = '<h2>Historial de Recibos</h2>';
+
     if (recibos.length === 0) {
         historialHTML += '<p>No hay recibos calculados.</p>';
     } else {
-        historialHTML += '<table>';
+        historialHTML += '<table class"HistorialRecibos">';
         historialHTML += `
             <thead>
                 <tr>
+                    <th>N°</th>
                     <th>Fecha de Cálculo</th>
                     <th>Sueldo Bruto</th>
                     <th>Sueldo Neto</th>
-                    <th>Acciones</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -400,36 +406,55 @@ function mostrarHistorialRecibos() {
         recibos.forEach(recibo => {
             historialHTML += `
                 <tr>
-                    <td>${new Date(recibo.id).toLocaleString()}</td>
+                    <td>${recibo.id}</td>
+                    <td>${recibo.fechaHorario}</td>
                     <td>${recibo.sueldoBruto.toFixed(2)}</td>
                     <td>${recibo.sueldoNeto.toFixed(2)}</td>
-                    <td><button onclick="eliminarRecibo(${recibo.id})">Eliminar</button></td>
+                    <td><button class="eliminar-recibo" onclick="eliminarRecibo(${recibo.id})"><img src="/img/basurero.png" alt="Eliminar"></button></td>
                 </tr>
             `;
         });
-        historialHTML += '</tbody></table>';
+        historialHTML += ` 
+            <tr>
+                <td colspan="4" style="text-align: center;">
+                    <button class="eliminar-historial" onclick="eliminarHistorial()">Eliminar Historial</button>
+                </td>
+            </tr>
+            </tbody ></table>`;
     }
     document.getElementById('historial-recibos').innerHTML = historialHTML;
 }
 
-// Función para eliminar un recibo del historial
+// Función para eliminar un recibo del historial.
 function eliminarRecibo(id) {
-    // Filtrar el array recibos para excluir el recibo con el ID dado
-    recibos = recibos.filter(recibo => recibo.id !== id);
+    // Filtrar el array recibos para excluir el recibo con el ID dado.
+    recibos = recibos.filter(recibo => recibo.id !== id); 
 
-    // Actualizar el localStorage con el nuevo array de recibos
+    // Actualizar el localStorage con el nuevo array de recibos.
     localStorage.setItem('recibos', JSON.stringify(recibos));
 
-    // Volver a mostrar el historial actualizado
+    // Volver a mostrar el historial actualizado.
     mostrarHistorialRecibos();
+    location.reload()
 }
 
-// Llamar a mostrarHistorialRecibos al cargar la página
-document.addEventListener('DOMContentLoaded', function() {
+// Función para eliminar historial de recibos.
+function eliminarHistorial() {
+    let confirmacionElimianrHisotrial = confirm("¿ Desea eliminar el historial ?");
+    if (confirmacionElimianrHisotrial == true){
+        localStorage.removeItem("recibos");
+        alert('Historial eliminado correctamente.');
+    } else {
+        alert("Cancelado.");
+    }
+    // Volver a mostrar el historial actualizado
     mostrarHistorialRecibos();
-});
+    location.reload()
+}
 
-
+/*// Agregar evento al botón para que llame a la función eliminarHistorial
+document.querySelector('.eliminar-historial').addEventListener('click', eliminarHistorial);
+*/
 
 function habilitarInput() {
     categoria = document.getElementById("categoria");
@@ -441,9 +466,13 @@ function habilitarInput() {
     } else {
         datoInput.disabled = false;
     }
+    
 }
 
-
+// Llamar a mostrarHistorialRecibos al cargar la página
+document.addEventListener('DOMContentLoaded', function () {
+    mostrarHistorialRecibos();
+});
 
 
 

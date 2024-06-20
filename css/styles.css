@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* calculadoras Financieras main */
 html {
   scroll-behavior: smooth;
@@ -47,7 +48,8 @@ html {
   font-weight: bold;
   grid-column: 1/4;
 }
-.container-box .box2, .container-box .box3 {
+.container-box .box2,
+.container-box .box3 {
   display: none;
 }
 .container-box .box1:hover {
@@ -157,17 +159,62 @@ form {
 }
 .containerBox2 .formulario-box {
   margin-top: 1.5em;
+  padding-bottom: 0.5em;
   border-bottom: 2px solid lightgrey;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
+.containerBox2 .horasExtra {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5em;
+  flex-wrap: wrap;
+}
 .containerBox2 .sabadoM {
-  color: chocolate;
+  background-color: chocolate;
+  color: white;
+  padding: 1em;
+  margin: 0.5em;
+  flex: 1 1 45%;
+  box-sizing: border-box;
 }
 .containerBox2 .feriado {
-  color: blue;
+  background-color: blue;
+  color: white;
+  padding: 1em;
+  margin: 0.5em;
+  flex: 1 1 45%;
+  box-sizing: border-box;
+}
+.containerBox2 .eliminar-historial {
+  background-color: #14805c;
+  color: #fafafa;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.containerBox2 .eliminar-historial:hover {
+  background-color: darkred;
+}
+.containerBox2 .eliminar-recibo {
+  background-color: #fafafa;
+  padding: 0.5em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.containerBox2 .eliminar-recibo img {
+  width: 20px; /* Ancho deseado de la imagen */
+  height: auto; /* Altura automática para mantener la proporción */
+}
+.containerBox2 .eliminar-recibo:hover {
+  background-color: red;
+}
+.containerBox2 .eliminar-recibo:active {
+  background-color: red;
 }
 .containerBox2 label {
   display: inline-block;
@@ -378,6 +425,14 @@ button {
   .item-iframe {
     width: 11em;
     height: 13em;
+  }
+  .horasExtra {
+    flex-direction: column;
+    align-items: center;
+  }
+  .sabadoM,
+  .feriado {
+    flex: 1 1 100%;
   }
 }
 @media only screen and (max-width: 650px) {

@@ -41,7 +41,8 @@ html {
     }
   }
 
-  .box2, .box3 {
+  .box2,
+  .box3 {
     display: none;
   }
 
@@ -152,22 +153,76 @@ form {
 
   .formulario-box {
     margin-top: 1.5em;
+    padding-bottom: 0.5em;
     border-bottom: 2px solid lightgrey;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
+  }
 
+
+  .horasExtra {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5em;
+    flex-wrap: wrap;
   }
 
   .sabadoM {
-    color: chocolate
+    background-color: chocolate;
+    color: white;
+    padding: 1em;
+    margin: 0.5em;
+    flex: 1 1 45%;
+    box-sizing: border-box;
   }
 
   .feriado {
-    color: blue;
+    background-color: blue;
+    color: white;
+    padding: 1em;
+    margin: 0.5em;
+    flex: 1 1 45%;
+    box-sizing: border-box;
   }
 
+  .eliminar-historial {
+    background-color: $colorverde;
+    color: $colorblanco;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    
+  }
+
+  .eliminar-historial:hover {
+    background-color: darkred;
+  }
+
+  .eliminar-recibo {
+    background-color: $colorblanco;
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    img{
+    width: 20px; /* Ancho deseado de la imagen */
+    height: auto; /* Altura automática para mantener la proporción */
+    }
+  }
+
+  .eliminar-recibo:hover {
+    background-color: red;
+  }
+
+  .eliminar-recibo:active {
+    background-color: red;
+  }
+    
 
   label {
     display: inline-block;

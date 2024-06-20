@@ -41,14 +41,14 @@
 
   }
 
-.container-box .box1,
-.container-box .box2,
-.container-box .box3 {
+  .container-box .box1,
+  .container-box .box2,
+  .container-box .box3 {
 
     height: 250px;
     width: auto;
 
-    h3{
+    h3 {
       font-size: 4vw;
     }
   }
@@ -108,6 +108,15 @@
     height: 13em;
   }
 
+  .horasExtra {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sabadoM,
+  .feriado {
+    flex: 1 1 100%;
+  }
 }
 
 @media only screen and (max-width: 650px) {
@@ -123,9 +132,11 @@
   header nav ul li a {
     font-size: 3vw;
   }
-  .containerBox2{
+
+  .containerBox2 {
     margin: 1em;
   }
+
   .financial-main {
     margin: 1em;
   }

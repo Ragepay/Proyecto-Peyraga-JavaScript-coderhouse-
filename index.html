@@ -13,10 +13,10 @@
     <header>
         <section class="container-box">
 
-            <h2>Calculadoras Financieras</h2>
+            <h2>Calculadoras Útiles</h2>
 
             <div class="box1">
-                <h3>Sueldo Neto</h3>
+                <h3>Calculadora de Sueldo Neto</h3>
                 <a href="#sueldoneto" class="boton"><button>calcular</button></a>
             </div>
 
@@ -133,30 +133,27 @@
                         <input type="number" id="horas-200" name="horas-200">
                     </div>
 
-                    <div class="formulario-box">
+                    <div class="formulario-box" style="border-bottom: 2px solid black;">
                         <label for="horas-nocturnas">Horas Nocturnas:</label>
                         <input type="number" id="horas-nocturnas" name="horas-nocturnas">
                     </div>
 
-                    <div class="horasExtra" style="margin: 10px; padding: 5px; ">
-                        sdfsdf
-
-                    </div>
-
-                    <!--
-                    <input type="radio" id="horas-nocturnas" name="horas-nocturnas" value="si">
-                    <label for="horas-nocturnas">T. Naranja</label>
-                    <input type="radio" id="horas-nocturnas" name="horas-nocturnas" value="si">
-                    <label for="horas-nocturnas">T. Blanco</label>
-                    <input type="radio" id="horas-nocturnas" name="horas-nocturnas" value="si">
-                    <label for="horas-nocturnas">T. Amarillo</label> 
-                     -->
-
                     <button class="boton4" type="button" onclick="calcularSueldo()">Calcular Sueldo</button>
-
+                    
+                    <div class="horasExtra">
+                        <div class="sabadoM">
+                            <label for="sabadoM">Produccion Sábado de mañana:</label>
+                            <div id="sabadoM"></div>
+                        </div>
+                        <div class="feriado">
+                            <label for="feriado">Feriado/Domingo/Sabado de tarde:</label>
+                            <div id="feriado"></div>
+                        </div>
+                    </div>
 
 
                     <div id="resultados">
+                        
 
                     </div>
                     <!-- Agrega un contenedor para el historial de recibos -->
