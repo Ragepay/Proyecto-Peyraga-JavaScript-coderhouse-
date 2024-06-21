@@ -166,6 +166,14 @@ form {
   justify-content: center;
   width: 100%;
 }
+.containerBox2 .caja-resultados {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 .containerBox2 .horasExtra {
   display: flex;
   justify-content: space-between;
@@ -207,6 +215,8 @@ form {
   cursor: pointer;
 }
 .containerBox2 .eliminar-recibo img {
+  text-align: center;
+  padding: 0 20px;
   width: 20px; /* Ancho deseado de la imagen */
   height: auto; /* Altura automática para mantener la proporción */
 }
