@@ -484,7 +484,7 @@ function mostrarHistorialRecibos() {
                 <td></td>
             </tr>
             <tr>
-                <td colspan="4"><button id="eliminar-recibo" class="eliminar-recibo" onclick="eliminarRecibo(${recibo.id})" style="text-align: center;"><img src="../img/basurero.png" alt="Eliminar" style="text-align: center;"></button></td>
+                <td colspan="4"><button id="eliminar-recibo" class="eliminar-recibo" onclick="eliminarRecibo(${recibo.id})" style="text-align: center;"><img src="img/basurero.png" alt="Eliminar" style="text-align: center;"></button></td>
             </tr>
             </tbody>
             </div>
