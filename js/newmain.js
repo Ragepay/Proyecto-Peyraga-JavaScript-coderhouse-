@@ -293,7 +293,7 @@ function calcularSueldo() {
         document.getElementById("resultados").innerHTML = `
         <div class="caja-resultados">
         <h2>Resultados</h2>
-    <table class="ResultadosCalculo">
+        <table class="ResultadosCalculo">
         <thead>
             <tr>
                 <th colspan="2">Descripción</th>
@@ -375,8 +375,8 @@ function calcularSueldo() {
                 <td></td>
             </tr>
         </tfoot>
-    </table>
-    <div class="horasExtra">
+        </table>
+        <div class="horasExtra">
         <div class="sabadoM">
             <label for="sabadoM">Produccion Sábado de mañana:</label>
             <div id="sabadoM">${recibo.sabadoM.toFixed(2)}</div>
@@ -385,14 +385,14 @@ function calcularSueldo() {
             <label for="feriado">Feriado/Domingo/Sabado de tarde:</label>
             <div id="feriado">${recibo.feriado.toFixed(2)}</div>
         </div>
-    </div>
-    </div>
-    `;
+        </div>
+        </div>
+        `;
     }
 
-    mostrarResultados()
+    mostrarResultados();
     mostrarHistorialRecibos();
-
+    console.log("Funcion ejecutada");
 }
 
 // Función para mostrar el historial de recibos
@@ -515,7 +515,7 @@ function eliminarRecibo(id) {
 
 function eliminarHistorial() {
     localStorage.removeItem("recibos");
-    
+
     // Volver a mostrar el historial actualizado
     mostrarHistorialRecibos();
     location.reload()
@@ -538,7 +538,7 @@ function habilitarInput() {
 // Función para manejar el evento de click en los botones
 function handleButtonClick(event) {
     const id = event.target.id;
-    
+
     if (id === 'eliminar-recibo') {
         Swal.fire({
             title: '¿Estás seguro?',
@@ -596,5 +596,11 @@ function addEventListeners() {
 
 // Cargar historial al cargar la página
 document.addEventListener('DOMContentLoaded', function () {
+    const botonCalcular = document.getElementById('calcularSueldo');
+
+    // Agregar un event listener para el evento click
+    botonCalcular.addEventListener('click', function() {
+        calcularSueldo(); // Llamar a la función calcularSueldo() cuando se haga clic en el botón
+    });
     mostrarHistorialRecibos();
 });
