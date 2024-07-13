@@ -301,19 +301,6 @@ button {
   text-align: right;
 }
 
-.footer {
-  background-color: #333;
-  color: #fafafa;
-  text-align: center;
-  padding: 30px;
-  bottom: 0;
-  width: 100%;
-}
-
-.footer p {
-  margin: 0;
-}
-
 /* FIN sueldoneto main */
 /* Media Querys */
 @media only screen and (max-width: 1200px) {
