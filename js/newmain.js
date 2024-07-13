@@ -257,7 +257,7 @@ function calcularSueldo() {
 
     //SEGUNDA PARTE: GANANCIAS.    
     //Calculando Monto Imponible.
-    let montoImponible = sueldoBruto - minimoImponible - jubilacion - ley - obraSocial -sindicatoTotal;
+    let montoImponible = sueldoBruto - minimoImponible - jubilacion - ley - obraSocial - sindicatoTotal;
 
 
     // Conyuge e Hijos
@@ -327,7 +327,6 @@ function calcularSueldo() {
     if (isNaN(retencion)) {
         retencion = 0;
     }
-    console.log(retencion);
 
     //  Creacion de los Objetos "reciboSueldo" por propiedad que ingrese, para poder almacenar y mostar por localstorage.
 
@@ -356,10 +355,10 @@ function calcularSueldo() {
 
     //  Creacion del Objeto literal y despues se almacena en el array de objetos.
     let id = Date.now();
-    const recibo = new ReciboSueldo(categoria, id, sueldoBase, calcularPresentismo(), calcularProductividad(), horasNocturnasTotal, horas50Total, horas200Total, antiguedadTotal, valesComedorTotal, jubilacion, ley, obraSocial, sindicatoTotal, sueldoBruto, sueldoNeto, sabadoM, feriado, retencion )
-    console.log(recibo);
+    const recibo = new ReciboSueldo(categoria, id, sueldoBase, calcularPresentismo(), calcularProductividad(), horasNocturnasTotal, horas50Total, horas200Total, antiguedadTotal, valesComedorTotal, jubilacion, ley, obraSocial, sindicatoTotal, sueldoBruto, sueldoNeto, sabadoM, feriado, retencion)
     recibos.unshift(recibo);
-    console.log(categoria)
+
+
 
     //  Almacenamos el array de objetos en el localStorage.
     localStorage.setItem("recibos", JSON.stringify(recibos));
@@ -480,7 +479,6 @@ function calcularSueldo() {
 
     mostrarResultados();
     mostrarHistorialRecibos();
-    console.log("Funcion ejecutada");
 }
 
 // Función para mostrar el historial de recibos
@@ -497,103 +495,105 @@ function mostrarHistorialRecibos() {
         `;
         recibos.forEach(recibo => {
             historialHTML += `
-                <thead>
-                    <tr>
-                        <th colspan="2">Categoria: ${recibo.categoria}</th>
-                        <th colspan="2">Fecha: ${new Date(recibo.id).toLocaleString()}</th>
-                    </tr>
-                    <tr>
-                        <th colspan="2">Descripción</th>
-                        <th>Haberes</th>
-                        <th>Deducciones</th>
-                    </tr>
-                </thead>
+                <div id="screenShot">
+                    <thead >
+                        <tr>
+                            <th colspan="2">Categoria: ${recibo.categoria}</th>
+                            <th colspan="2">Fecha: ${new Date(recibo.id).toLocaleString()}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Descripción</th>
+                            <th>Haberes</th>
+                            <th>Deducciones</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    <tr>
-                        <td colspan="2">Salario Base</td>
-                        <td>${recibo.salarioBase.toFixed(2)}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Presentismo</td>
-                        <td>${recibo.presentismo.toFixed(2)}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Productividad</td>
-                        <td>${recibo.productividad.toFixed(2)}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Horas Nocturnas</td>
-                        <td>${recibo.horasNocturnas.toFixed(2)}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Horas 50%</td>
-                        <td>${recibo.horas50.toFixed(2)}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Horas 200%</td>
-                        <td>${recibo.horas200.toFixed(2)}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Antigüedad</td>
-                        <td>${recibo.antiguedad.toFixed(2)}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Jubilación</td>
-                        <td></td>
-                        <td>-${recibo.jubilacion.toFixed(2)}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Ley 19032</td>
-                        <td></td>
-                        <td>-${recibo.ley.toFixed(2)}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Obra Social</td>
-                        <td></td>
-                        <td>-${recibo.obraSocial.toFixed(2)}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">SMATA</td>
-                        <td></td>
-                        <td>-${recibo.aporteSindical.toFixed(2)}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Vales de Comedor</td>
-                        <td></td>
-                        <td>-${recibo.retencionValesComedor.toFixed(2)}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">IIGG</td>
-                        <td></td>
-                        <td>-${recibo.retencion.toFixed(2)}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Sueldo Bruto</td>
-                        <td colspan="2" style=" text-align: center;">${recibo.sueldoBruto.toFixed(2)}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Sueldo Neto</td>
-                        <td colspan="2" style=" text-align: center;">${recibo.sueldoNeto.toFixed(2)}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            <div class="item-historial">
-                                <button> ScreenShot </button>
-                                <button id="eliminar-recibo" class="eliminar-recibo" onclick="eliminarRecibo(${recibo.id})" style="text-align: center;">
-                                    <img src="img/basurero.png" alt="Eliminar">
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
+                    <tbody>
+                        <tr>
+                            <td colspan="2">Salario Base</td>
+                            <td>${recibo.salarioBase.toFixed(2)}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Presentismo</td>
+                            <td>${recibo.presentismo.toFixed(2)}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Productividad</td>
+                            <td>${recibo.productividad.toFixed(2)}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Horas Nocturnas</td>
+                            <td>${recibo.horasNocturnas.toFixed(2)}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Horas 50%</td>
+                            <td>${recibo.horas50.toFixed(2)}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Horas 200%</td>
+                            <td>${recibo.horas200.toFixed(2)}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Antigüedad</td>
+                            <td>${recibo.antiguedad.toFixed(2)}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Jubilación</td>
+                            <td></td>
+                            <td>-${recibo.jubilacion.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Ley 19032</td>
+                            <td></td>
+                            <td>-${recibo.ley.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Obra Social</td>
+                            <td></td>
+                            <td>-${recibo.obraSocial.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">SMATA</td>
+                            <td></td>
+                            <td>-${recibo.aporteSindical.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Vales de Comedor</td>
+                            <td></td>
+                            <td>-${recibo.retencionValesComedor.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">IIGG</td>
+                            <td></td>
+                            <td>-${recibo.retencion.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Sueldo Bruto</td>
+                            <td colspan="2" style=" text-align: center;">${recibo.sueldoBruto.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Sueldo Neto</td>
+                            <td colspan="2" style=" text-align: center;">${recibo.sueldoNeto.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <div class="item-historial">
+                                    
+                                    <button id="eliminar-recibo" class="eliminar-recibo" onclick="eliminarRecibo(${recibo.id})" style="text-align: center;">
+                                        <img src="img/basurero.png" alt="Eliminar">
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </div>
             </div>
             `;
         });
@@ -711,16 +711,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     mostrarHistorialRecibos();
 });
-
-/*
-function takeScreenshot() {
-            html2canvas(document.getElementById('result')).then(canvas => {
-                const link = document.createElement('a');
-                link.href = canvas.toDataURL();
-                link.download = 'screenshot.png';
-                link.click();
-            }).catch(err => {
-                console.error('Error capturing screenshot:', err);
-            });
-        }
-*/
