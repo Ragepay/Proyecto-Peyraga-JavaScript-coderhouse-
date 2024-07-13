@@ -1,10 +1,10 @@
 /* Declaracion de variables que van a ser actualizadas. */
 //----------------------------------------------------------------------------------
 // Aumento de    Mayo  | Julio  
-const AUMENTO = 1.2248 * 1;
+const AUMENTO = 1.2248 * 1.09;
 
 // Maxima retencion de las cargas sociales.
-const maxCargasSociales = 2081258.63;
+const maxCargasSociales = 2359712.22;
 
 // calcularsueldo.com const maxCargasSociales = 2265033.81;
 
@@ -14,7 +14,7 @@ const deduccionEspecial = 1236414.00;
 
 // Valores de deduccion de hijo, Conyuge y minino Imponible.
 const conyuge = 242594.4;
-const hijo = 128702.8;
+const hijo = 122341.33;
 let minimoImponible = minimoNoImponible + deduccionEspecial;
 
 //  Retencion vales de comedro.
@@ -255,10 +255,85 @@ function calcularSueldo() {
         sueldoNeto = sueldoBruto - jubilacion - ley - obraSocial - valesComedorTotal;
     }
 
+    //SEGUNDA PARTE: GANANCIAS.    
+    //Calculando Monto Imponible.
+    let montoImponible = sueldoBruto - minimoImponible - jubilacion - ley - obraSocial -sindicatoTotal;
+
+
+    // Conyuge e Hijos
+    let conyugeSi = document.getElementById("conyugeSi");
+    let hijos = document.getElementById("hijos").value;
+
+    if (conyugeSi.checked) {
+        // Si se seleccionó "Sí" sumar el
+        montoImponible -= conyuge;
+    }
+
+
+    switch (hijos) {
+        case "0":
+            montoImponible -= 0;
+            break;
+        case "1":
+            montoImponible = montoImponible - (hijo * 1);
+            break;
+        case "2":
+            montoImponible = montoImponible - (hijo * 2);
+            break;
+        case "3":
+            montoImponible = montoImponible - (hijo * 3);
+            break;
+        case "4":
+            montoImponible = montoImponible - (hijo * 4);
+            break;
+        case "5":
+            montoImponible = montoImponible - (hijo * 5);
+            break;
+        case "6":
+            montoImponible = montoImponible - (hijo * 6);
+            break;
+
+        default:
+            montoImponible -= 0;
+    }
+
+    if (montoImponible < 0) {
+        montoImponible = 0;
+    }
+
+    // Construccion calculo de retencion con escalas.
+
+
+    const escala = [0, 100000, 200000, 300000, 450000, 900000, 1350000, 2050000, 3037500, 1000000000000000];
+    const numRet = [5, 9, 12, 15, 19, 23, 27, 31, 35];
+
+    let retencion = 0;
+
+    for (let i = 0; i < escala.length; i++) {
+        if (montoImponible <= escala[i]) {
+            // Calcular la retención del tramo actual
+            retencion += (montoImponible - (i > 0 ? escala[i - 1] : 0)) * (numRet[i - 1] / 100);
+            break;
+        } else {
+            // Calcular la retención de todo el tramo
+            if (i > 0) {
+                retencion += (escala[i] - escala[i - 1]) * (numRet[i - 1] / 100);
+            } else {
+                retencion += escala[i] * (numRet[0] / 100);
+            }
+        }
+    }
+
+    if (isNaN(retencion)) {
+        retencion = 0;
+    }
+    console.log(retencion);
+
     //  Creacion de los Objetos "reciboSueldo" por propiedad que ingrese, para poder almacenar y mostar por localstorage.
 
 
-    function ReciboSueldo(id, salarioBase, presentismo, produtivdad, horasNocturnas, horas50, horas200, antiguedad, retencionValesComedor, jubilacion, ley, obraSocial, aporteSindical, sueldoBruto, sueldoNeto, sabadoM, feriado, fechaHorario) {
+    function ReciboSueldo(categoria, id, salarioBase, presentismo, produtivdad, horasNocturnas, horas50, horas200, antiguedad, retencionValesComedor, jubilacion, ley, obraSocial, aporteSindical, sueldoBruto, sueldoNeto, sabadoM, feriado, retencion) {
+        this.categoria = categoria || "Sin categoria";
         this.id = id;
         this.salarioBase = salarioBase;
         this.presentismo = presentismo;
@@ -276,14 +351,15 @@ function calcularSueldo() {
         this.sueldoNeto = sueldoNeto;
         this.sabadoM = sabadoM;
         this.feriado = feriado;
-        this.fechaHorario = fechaHorario;
+        this.retencion = retencion;
     }
 
     //  Creacion del Objeto literal y despues se almacena en el array de objetos.
     let id = Date.now();
-    const recibo = new ReciboSueldo(id, sueldoBase, calcularPresentismo(), calcularProductividad(), horasNocturnasTotal, horas50Total, horas200Total, antiguedadTotal, valesComedorTotal, jubilacion, ley, obraSocial, sindicatoTotal, sueldoBruto, sueldoNeto, sabadoM, feriado, new Date().toLocaleString())
+    const recibo = new ReciboSueldo(categoria, id, sueldoBase, calcularPresentismo(), calcularProductividad(), horasNocturnasTotal, horas50Total, horas200Total, antiguedadTotal, valesComedorTotal, jubilacion, ley, obraSocial, sindicatoTotal, sueldoBruto, sueldoNeto, sabadoM, feriado, retencion )
     console.log(recibo);
     recibos.unshift(recibo);
+    console.log(categoria)
 
     //  Almacenamos el array de objetos en el localStorage.
     localStorage.setItem("recibos", JSON.stringify(recibos));
@@ -292,100 +368,112 @@ function calcularSueldo() {
     function mostrarResultados() {
         document.getElementById("resultados").innerHTML = `
         <div class="caja-resultados">
-        <h2>Resultados</h2>
-        <table class="ResultadosCalculo">
-        <thead>
-            <tr>
-                <th colspan="2">Descripción</th>
-                <th>Haberes</th>
-                <th>Deducciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td colspan="2">Salario Base</td>
-                <td>${recibo.salarioBase.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Presentismo</td>
-                <td>${recibo.presentismo.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Productividad</td>
-                <td>${recibo.productividad.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Horas Nocturnas</td>
-                <td>${recibo.horasNocturnas.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Horas 50%</td>
-                <td>${recibo.horas50.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Horas 200%</td>
-                <td>${recibo.horas200.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Antigüedad</td>
-                <td>${recibo.antiguedad.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Vales de Comedor</td>
-                <td>${recibo.retencionValesComedor.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Jubilación</td>
-                <td></td>
-                <td>${recibo.jubilacion.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td colspan="2">Ley 19032</td>
-                <td></td>
-                <td>${recibo.ley.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td colspan="2">Obra Social</td>
-                <td></td>
-                <td>${recibo.obraSocial.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td colspan="2">Smata</td>
-                <td></td>
-                <td>${recibo.aporteSindical.toFixed(2)}</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td >Sueldo Bruto</td>
-                <td colspan="2">${recibo.sueldoBruto.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td >Sueldo Neto</td>
-                <td colspan="2">${recibo.sueldoNeto.toFixed(2)}</td>
-                <td></td>
-            </tr>
-        </tfoot>
-        </table>
-        <div class="horasExtra">
-        <div class="sabadoM">
-            <label for="sabadoM">Produccion Sábado de mañana:</label>
-            <div id="sabadoM">${recibo.sabadoM.toFixed(2)}</div>
-        </div>
-        <div class="feriado">
-            <label for="feriado">Feriado/Domingo/Sabado de tarde:</label>
-            <div id="feriado">${recibo.feriado.toFixed(2)}</div>
-        </div>
-        </div>
+
+            <h3>Resultados</h3>
+
+            <table class="ResultadosCalculo">
+                <thead>
+                    <tr>
+                        <th colspan="2">Categoria: ${recibo.categoria}</th>
+                        <th colspan="2">Fecha: ${new Date(recibo.id).toLocaleString()}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Descripción</th>
+                        <th>Haberes</th>
+                        <th>Deducciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td colspan="2">Salario Base</td>
+                        <td>${recibo.salarioBase.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Presentismo</td>
+                        <td>${recibo.presentismo.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Productividad</td>
+                        <td>${recibo.productividad.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Horas Nocturnas</td>
+                        <td>${recibo.horasNocturnas.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Horas 50%</td>
+                        <td>${recibo.horas50.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Horas 200%</td>
+                        <td>${recibo.horas200.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Antigüedad</td>
+                        <td>${recibo.antiguedad.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Jubilación</td>
+                        <td></td>
+                        <td>-${recibo.jubilacion.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Ley 19032</td>
+                        <td></td>
+                        <td>-${recibo.ley.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Obra Social</td>
+                        <td></td>
+                        <td>-${recibo.obraSocial.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Smata</td>
+                        <td></td>
+                        <td>-${recibo.aporteSindical.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Vales de Comedor</td>
+                        <td></td>
+                        <td>-${recibo.retencionValesComedor.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">IIGG</td>
+                        <td></td>
+                        <td>-${recibo.retencion.toFixed(2)}</td>
+                    </tr>
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Sueldo Bruto</td>
+                        <td colspan="2" style=" text-align: center;">${recibo.sueldoBruto.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Sueldo Neto</td>
+                        <td colspan="2" style=" text-align: center;">${recibo.sueldoNeto.toFixed(2)}</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="horasExtra">
+                <div class="sabadoM">
+                    <label for="sabadoM">Produccion Sábado de mañana:</label>
+                    <div id="sabadoM">${recibo.sabadoM.toFixed(2)}</div>
+                </div>
+                <div class="feriado">
+                    <label for="feriado">Feriado/Domingo/Sabado de tarde:</label>
+                    <div id="feriado">${recibo.feriado.toFixed(2)}</div>
+                </div>
+            </div>
         </div>
         `;
     }
@@ -403,90 +491,109 @@ function mostrarHistorialRecibos() {
     if (recibos.length === 0) {
         historialHTML += '<p>No hay recibos calculados.</p>';
     } else {
-        historialHTML += '<div class="caja-resultados"><table class="ResultadosCalculo">';
+        historialHTML += `
+        <div class="caja-resultados">
+            <table class="ResultadosCalculo">
+        `;
         recibos.forEach(recibo => {
-            historialHTML += `<thead>
-                <tr>
-                    <th colspan="2">Descripción</th>
-                    <th>Haberes</th>
-                    <th>Deducciones</th>
-                </tr>
+            historialHTML += `
+                <thead>
+                    <tr>
+                        <th colspan="2">Categoria: ${recibo.categoria}</th>
+                        <th colspan="2">Fecha: ${new Date(recibo.id).toLocaleString()}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Descripción</th>
+                        <th>Haberes</th>
+                        <th>Deducciones</th>
+                    </tr>
                 </thead>
-            <tbody>
-            <tr>
-                <td colspan="2">Salario Base</td>
-                <td>${recibo.salarioBase.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Presentismo</td>
-                <td>${recibo.presentismo.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Productividad</td>
-                <td>${recibo.productividad.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Horas Nocturnas</td>
-                <td>${recibo.horasNocturnas.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Horas 50%</td>
-                <td>${recibo.horas50.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Horas 200%</td>
-                <td>${recibo.horas200.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Antigüedad</td>
-                <td>${recibo.antiguedad.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Vales de Comedor</td>
-                <td>${recibo.retencionValesComedor.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">Jubilación</td>
-                <td></td>
-                <td>${recibo.jubilacion.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td colspan="2">Ley 19032</td>
-                <td></td>
-                <td>${recibo.ley.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td colspan="2">Obra Social</td>
-                <td></td>
-                <td>${recibo.obraSocial.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td colspan="2">SMATA</td>
-                <td></td>
-                <td>${recibo.aporteSindical.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td >Sueldo Bruto</td>
-                <td colspan="2">${recibo.sueldoBruto.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td >Sueldo Neto</td>
-                <td colspan="2">${recibo.sueldoNeto.toFixed(2)}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="4"><button id="eliminar-recibo" class="eliminar-recibo" onclick="eliminarRecibo(${recibo.id})" style="text-align: center;"><img src="img/basurero.png" alt="Eliminar" style="text-align: center;"></button></td>
-            </tr>
-            </tbody>
+
+                <tbody>
+                    <tr>
+                        <td colspan="2">Salario Base</td>
+                        <td>${recibo.salarioBase.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Presentismo</td>
+                        <td>${recibo.presentismo.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Productividad</td>
+                        <td>${recibo.productividad.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Horas Nocturnas</td>
+                        <td>${recibo.horasNocturnas.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Horas 50%</td>
+                        <td>${recibo.horas50.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Horas 200%</td>
+                        <td>${recibo.horas200.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Antigüedad</td>
+                        <td>${recibo.antiguedad.toFixed(2)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Jubilación</td>
+                        <td></td>
+                        <td>-${recibo.jubilacion.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Ley 19032</td>
+                        <td></td>
+                        <td>-${recibo.ley.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Obra Social</td>
+                        <td></td>
+                        <td>-${recibo.obraSocial.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">SMATA</td>
+                        <td></td>
+                        <td>-${recibo.aporteSindical.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Vales de Comedor</td>
+                        <td></td>
+                        <td>-${recibo.retencionValesComedor.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">IIGG</td>
+                        <td></td>
+                        <td>-${recibo.retencion.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Sueldo Bruto</td>
+                        <td colspan="2" style=" text-align: center;">${recibo.sueldoBruto.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Sueldo Neto</td>
+                        <td colspan="2" style=" text-align: center;">${recibo.sueldoNeto.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div class="item-historial">
+                                <button> ScreenShot </button>
+                                <button id="eliminar-recibo" class="eliminar-recibo" onclick="eliminarRecibo(${recibo.id})" style="text-align: center;">
+                                    <img src="img/basurero.png" alt="Eliminar">
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
             </div>
             `;
         });
@@ -599,8 +706,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const botonCalcular = document.getElementById('calcularSueldo');
 
     // Agregar un event listener para el evento click
-    botonCalcular.addEventListener('click', function() {
+    botonCalcular.addEventListener('click', function () {
         calcularSueldo(); // Llamar a la función calcularSueldo() cuando se haga clic en el botón
     });
     mostrarHistorialRecibos();
 });
+
+/*
+function takeScreenshot() {
+            html2canvas(document.getElementById('result')).then(canvas => {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL();
+                link.download = 'screenshot.png';
+                link.click();
+            }).catch(err => {
+                console.error('Error capturing screenshot:', err);
+            });
+        }
+*/

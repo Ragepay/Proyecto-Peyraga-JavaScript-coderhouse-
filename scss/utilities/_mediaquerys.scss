@@ -41,9 +41,7 @@
 
   }
 
-  .container-box .box1,
-  .container-box .box2,
-  .container-box .box3 {
+  .container-box .box1 {
 
     height: 250px;
     width: auto;
@@ -51,43 +49,6 @@
     h3 {
       font-size: 4vw;
     }
-  }
-
-}
-
-@media (min-width: 977px) {
-
-  #sectionInformacion {
-    display: flex;
-    justify-content: center;
-    height: 70vh;
-
-  }
-
-  #containerInformacion {
-    display: contents;
-    align-items: center;
-  }
-
-  #containerInformacion .dolar {
-    padding: 9em;
-    margin: 2em;
-    background-position: center;
-
-  }
-
-  #containerInformacion .pesos {
-    padding: 9em;
-    margin: 2em;
-    background-position: center;
-  }
-
-}
-
-@media only screen and (max-width:960px) {
-
-  .container p {
-    font-size: 1em;
   }
 
 }

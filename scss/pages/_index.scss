@@ -1,8 +1,9 @@
-/* calculadoras Financieras main */
+/* Estilos Universales */
 html {
   scroll-behavior: smooth;
 }
 
+/* HEADER */
 .container-box {
 
   text-align: center;
@@ -11,14 +12,13 @@ html {
   padding: 2em;
   border: 5px solid #14805c;
   border-radius: 1em;
-  /*display: grid;*/
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1),
     0 0 20px rgba(0, 0, 0, 0.2),
     0 0 30px rgba(0, 0, 0, 0.3);
 
-  h2 {
+  h1 {
     color: #14805c;
     font-size: 4.5vw;
     height: auto;
@@ -26,9 +26,7 @@ html {
     grid-column: 1/4
   }
 
-  .box1,
-  .box2,
-  .box3 {
+  .box1 {
     @include box;
     height: 500px;
 
@@ -41,39 +39,13 @@ html {
     }
   }
 
-  .box2,
-  .box3 {
-    display: none;
-  }
-
   .box1:hover {
-    @include boxhover;
-  }
-
-  .box2:hover {
-    @include boxhover;
-  }
-
-  .box3:hover {
     @include boxhover;
   }
 
   .box1 {
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
       url(../img/fotoSueldoNeto.jpg);
-
-  }
-
-
-  .box2 {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
-      url(../img/fotoPlazoFijo.jpeg);
-
-  }
-
-  .box3 {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
-      url(../img/fotoImpuestoGanancias.jpeg);
 
   }
 
@@ -84,43 +56,17 @@ html {
       transform: scale(1.1);
     }
   }
-
-  .box2 .boton button {
-    @include boxboton;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-
-  .box3 .boton button {
-    @include boxboton;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-
 }
 
-/* FIN de calculadoras Financieras */
+/* FIN HEADER */
 
-/* Inicio sueldoneto main */
+/* MAIN */
 form {
   margin-bottom: 15px;
   font-family: Arial, sans-serif;
 }
 
-.actualizacion {
-  margin: 1em auto;
-  border: 2px solid rgb(82, 79, 79);
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-  max-width: 400px;
-  color: rgb(56, 55, 55);
-  background-color: #bbcbf8;
-}
+
 
 .containerBox2 {
   text-align: center;
@@ -134,15 +80,26 @@ form {
   border: 5px solid $colorverde;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 
-  h1 {
+  .actualizacion {
+    margin: 1em auto;
+    border: 2px solid rgb(82, 79, 79);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    max-width: 400px;
+    color: rgb(56, 55, 55);
+    background-color: #bbcbf8;
+  }
+
+  h2 {
     font-size: 2em;
     color: $colorverde;
-    justify-content: center;
+  
     padding-bottom: .5em;
     border-bottom: 3px solid $colorverde;
   }
 
-  h2 {
+  h3 {
     font-size: 1.6em;
     color: $colorverde;
     justify-content: center;
@@ -160,6 +117,7 @@ form {
     justify-content: center;
     width: 100%;
   }
+
   .caja-resultados {
     background-color: #f0f0f0;
     padding: 20px;
@@ -167,7 +125,8 @@ form {
     border-radius: 8px;
     margin-bottom: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    
+  }
 
   .horasExtra {
     display: flex;
@@ -202,7 +161,7 @@ form {
     border-radius: 5px;
     cursor: pointer;
 
-    
+
   }
 
   .eliminar-historial:hover {
@@ -216,11 +175,13 @@ form {
     border-radius: 5px;
     cursor: pointer;
 
-    img{
-    text-align: center;
-    padding: 0 20px;
-    width: 20px; /* Ancho deseado de la imagen */
-    height: auto; /* Altura automática para mantener la proporción */
+    img {
+      text-align: center;
+      padding: 0 20px;
+      width: 20px;
+      /* Ancho deseado de la imagen */
+      height: auto;
+      /* Altura automática para mantener la proporción */
     }
   }
 
@@ -231,7 +192,7 @@ form {
   .eliminar-recibo:active {
     background-color: red;
   }
-    
+
 
   label {
     display: inline-block;
@@ -320,7 +281,8 @@ button {
   font-size: 14px;
 }
 
-.ResultadosCalculo th, .ResultadosCalculo td {
+.ResultadosCalculo th,
+.ResultadosCalculo td {
   padding: 8px;
   text-align: left;
   border: 1px solid #dddddd;
@@ -364,7 +326,8 @@ button {
   background-color: #f2f2f2;
 }
 
-.ResultadosCalculo td:nth-child(3), .ResultadosCalculo td:nth-child(4) {
+.ResultadosCalculo td:nth-child(3),
+.ResultadosCalculo td:nth-child(4) {
   font-weight: normal;
   text-align: right;
 }

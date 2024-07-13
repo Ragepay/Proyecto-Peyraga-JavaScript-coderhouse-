@@ -1,9 +1,10 @@
 @charset "UTF-8";
-/* calculadoras Financieras main */
+/* Estilos Universales */
 html {
   scroll-behavior: smooth;
 }
 
+/* HEADER */
 .container-box {
   text-align: center;
   margin: 1em;
@@ -11,21 +12,18 @@ html {
   padding: 2em;
   border: 5px solid #14805c;
   border-radius: 1em;
-  /*display: grid;*/
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.3);
 }
-.container-box h2 {
+.container-box h1 {
   color: #14805c;
   font-size: 4.5vw;
   height: auto;
   font-weight: bold;
   grid-column: 1/4;
 }
-.container-box .box1,
-.container-box .box2,
-.container-box .box3 {
+.container-box .box1 {
   width: auto;
   border-radius: 1em;
   background-size: cover;
@@ -39,36 +37,18 @@ html {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
   height: 500px;
 }
-.container-box .box1 h3,
-.container-box .box2 h3,
-.container-box .box3 h3 {
+.container-box .box1 h3 {
   color: #14805c;
   font-size: 2vw;
   height: auto;
   font-weight: bold;
   grid-column: 1/4;
 }
-.container-box .box2,
-.container-box .box3 {
-  display: none;
-}
 .container-box .box1:hover {
-  transform: scale(1.02);
-}
-.container-box .box2:hover {
-  transform: scale(1.02);
-}
-.container-box .box3:hover {
   transform: scale(1.02);
 }
 .container-box .box1 {
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(../img/fotoSueldoNeto.jpg);
-}
-.container-box .box2 {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(../img/fotoPlazoFijo.jpeg);
-}
-.container-box .box3 {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(../img/fotoImpuestoGanancias.jpeg);
 }
 .container-box .box1 .boton button {
   font-weight: 700;
@@ -84,51 +64,12 @@ html {
 .container-box .box1 .boton button:hover {
   transform: scale(1.1);
 }
-.container-box .box2 .boton button {
-  font-weight: 700;
-  color: #14805c;
-  padding: 9px 25px;
-  background-color: #fafafa;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-  font-size: 1.2em;
-}
-.container-box .box2 .boton button:hover {
-  transform: scale(1.1);
-}
-.container-box .box3 .boton button {
-  font-weight: 700;
-  color: #14805c;
-  padding: 9px 25px;
-  background-color: #fafafa;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-  font-size: 1.2em;
-}
-.container-box .box3 .boton button:hover {
-  transform: scale(1.1);
-}
 
-/* FIN de calculadoras Financieras */
-/* Inicio sueldoneto main */
+/* FIN HEADER */
+/* MAIN */
 form {
   margin-bottom: 15px;
   font-family: Arial, sans-serif;
-}
-
-.actualizacion {
-  margin: 1em auto;
-  border: 2px solid rgb(82, 79, 79);
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-  max-width: 400px;
-  color: rgb(56, 55, 55);
-  background-color: #bbcbf8;
 }
 
 .containerBox2 {
@@ -143,14 +84,23 @@ form {
   border: 5px solid #14805c;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 }
-.containerBox2 h1 {
+.containerBox2 .actualizacion {
+  margin: 1em auto;
+  border: 2px solid rgb(82, 79, 79);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  max-width: 400px;
+  color: rgb(56, 55, 55);
+  background-color: #bbcbf8;
+}
+.containerBox2 h2 {
   font-size: 2em;
   color: #14805c;
-  justify-content: center;
   padding-bottom: 0.5em;
   border-bottom: 3px solid #14805c;
 }
-.containerBox2 h2 {
+.containerBox2 h3 {
   font-size: 1.6em;
   color: #14805c;
   justify-content: center;
@@ -217,8 +167,10 @@ form {
 .containerBox2 .eliminar-recibo img {
   text-align: center;
   padding: 0 20px;
-  width: 20px; /* Ancho deseado de la imagen */
-  height: auto; /* Altura automática para mantener la proporción */
+  width: 20px;
+  /* Ancho deseado de la imagen */
+  height: auto;
+  /* Altura automática para mantener la proporción */
 }
 .containerBox2 .eliminar-recibo:hover {
   background-color: red;
@@ -298,7 +250,8 @@ button {
   font-size: 14px;
 }
 
-.ResultadosCalculo th, .ResultadosCalculo td {
+.ResultadosCalculo th,
+.ResultadosCalculo td {
   padding: 8px;
   text-align: left;
   border: 1px solid #dddddd;
@@ -342,7 +295,8 @@ button {
   background-color: #f2f2f2;
 }
 
-.ResultadosCalculo td:nth-child(3), .ResultadosCalculo td:nth-child(4) {
+.ResultadosCalculo td:nth-child(3),
+.ResultadosCalculo td:nth-child(4) {
   font-weight: normal;
   text-align: right;
 }
@@ -391,42 +345,12 @@ button {
     display: flex;
     flex-direction: column;
   }
-  .container-box .box1,
-  .container-box .box2,
-  .container-box .box3 {
+  .container-box .box1 {
     height: 250px;
     width: auto;
   }
-  .container-box .box1 h3,
-  .container-box .box2 h3,
-  .container-box .box3 h3 {
+  .container-box .box1 h3 {
     font-size: 4vw;
-  }
-}
-@media (min-width: 977px) {
-  #sectionInformacion {
-    display: flex;
-    justify-content: center;
-    height: 70vh;
-  }
-  #containerInformacion {
-    display: contents;
-    align-items: center;
-  }
-  #containerInformacion .dolar {
-    padding: 9em;
-    margin: 2em;
-    background-position: center;
-  }
-  #containerInformacion .pesos {
-    padding: 9em;
-    margin: 2em;
-    background-position: center;
-  }
-}
-@media only screen and (max-width: 960px) {
-  .container p {
-    font-size: 1em;
   }
 }
 @media only screen and (max-width: 900px) {

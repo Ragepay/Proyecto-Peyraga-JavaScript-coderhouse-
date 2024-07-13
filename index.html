@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+    <script src="./js/newmain.js"></script>
     <title>Calculadoras Útiles</title>
 </head>
 
@@ -14,24 +14,12 @@
     <header>
         <section class="container-box">
 
-            <h2>Calculadoras Útiles</h2>
+            <h1>Calculadoras Útiles</h1>
 
             <div class="box1">
                 <h3>Calculadora de Sueldo Neto</h3>
                 <a href="#sueldoneto" class="boton"><button>calcular</button></a>
             </div>
-
-            <div class="box2">
-                <h3>Plazos Fijos</h3>
-                <a href="#plazofijo" class="boton"><button>calcular</button></a>
-            </div>
-
-            <div class="box3">
-                <h3>Cuotas/Efectivo</h3>
-                <a href="#cuotas" class="boton"><button>calcular</button></a>
-            </div>
-
-
 
         </section>
     </header>
@@ -42,7 +30,7 @@
 
             <div class="containerBox2">
 
-                <h1>Calculadora de Sueldo de Toyota</h1>
+                <h2>Calculadora de Sueldo de Toyota</h2>
                 <div class="actualizacion">
                     Incluye aumento de mayo del 22,48%.
                 </div>
@@ -134,118 +122,55 @@
                         <input type="number" id="horas-200" name="horas-200">
                     </div>
 
-                    <div class="formulario-box" style="border-bottom: 2px solid black;">
+                    <div class="formulario-box" >
                         <label for="horas-nocturnas">Horas Nocturnas:</label>
                         <input type="number" id="horas-nocturnas" name="horas-nocturnas">
                     </div>
 
-                    <button  id="calcularSueldo" class="boton4" type="button">Calcular Sueldo</button>
+                    <h3>Impuesto a las Ganancias</h3>
 
-                    <div class="resultados" id="resultados"></div>
+                    <div class="formulario-box">
+                        <label>CONYUGE:</label>
+                        <div>
+                            <input type="radio" id="conyugeSi" name="conyuge" value="si" onchange="calcularSueldo()">
+                            <label for="conyugeSi">Sí</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="conyugeNo" name="conyuge" value="no" onchange="calcularSueldo()">
+                            <label for="conyugeNo">No</label>
+                        </div>
+                    </div>
 
+                    <div class="formulario-box">
+                        <label for="hijos">Hijos:</label>
+                        <select id="hijos" name="hijos" onchange="calcularSueldo()">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
 
-                    <!-- Agrega un contenedor para el historial de recibos -->
+                    <button id="calcularSueldo" class="boton4" type="button">Calcular Sueldo</button>
+
+                    <div class="resultados" id="resultados">
+
+                    </div>
+
                     <div id="historial-recibos">
-                        <!-- Aquí se mostrará el historial de recibos -->
+
                     </div>
                 </form>
             </div>
         </section>
-
-
-
-        <!-- 
-        <section id="plazofijo">
-
-            <div class="containerBox2">
-
-                <h1>Calculadora de Plazo Fijo</h1>
-
-                <form>
-
-                    <div class="formulario-box">
-                        <label for="monto">Capital/Monto:</label>
-                        <input type="number" id="inputMonto" step="0.01" placeholder="100.000"
-                            oninput="formatearNumero(this)">
-                    </div>
-
-                    <div class="formulario-box">
-                        <label for="tasaInteres">TNA/Interés (%):</label>
-                        <input type="number" id="inputTasaInteres" step="0.01" placeholder="100">
-                    </div>
-
-                    <div class="formulario-box">
-                        <label for="meses">Meses:</label>
-                        <input type="number" id="inputMeses" placeholder="1">
-                    </div>
-
-                    <div class="interesCompuesto">
-                        <label for="interesCompuesto">Con Interés Compuesto:</label>
-                        <input type="checkbox" id="inputInteresCompuesto" onchange="calcularPlazoFijo()">
-                    </div>
-
-                    <div>
-                        <button onclick="calcularPlazoFijo()" type="button" class="boton4">Calcular</button>
-                    </div>
-
-                    <div class="resultados">
-                        <h2>Resultados:</h2>
-                        <p>Interés:<span id="ganancias"></span></p>
-                        <p>Capital + Interés:<span id="montoTotal"></span></p>
-                    </div>
-
-                </form>
-
-            </div>
-
-        </section>
-    -->
-        <!-- 
-    <section id="cuotas">
-        <div class="containerBox2">
-
-            <h1>Calculadora Comparativa</h1>
-
-            <form>
-
-                <h2>Efectivo</h2>
-
-                <div class="formulario-box">
-                    <label for="contado">Precio al Contado:</label>
-                    <input type="number" id="contado" step="0.01" required>
-                </div>
-
-                <h2> VS </h2>
-
-                <h2>Cuotas S/Interés</h2>
-
-                <div class="formulario-box">
-                    <label for="financiado">Precio total en cuotas:</label>
-                    <input type="number" id="financiado">
-                </div>
-
-                <div class="formulario-box">
-                    <label for="cantcuotas">Cantidad de Cuotas S/I:</label>
-                    <input type="number" id="cantcuotas">
-                </div>
-
-                <div class="formulario-box">
-                    <label for="TNA">TNA Plazo Fijo:</label>
-                    <input type="number" id="TNA">
-                </div>
-
-                <button type="button" onclick="Comparar()" class="boton4">Calcular</button>
-            </form>
-            <div class="resultados" id="resultado"></div>
-        </div>
-    </section>
-    -->
     </main>
 
     <footer class="footer">
         <p>Todos los derechos reservados &copy; 2024</p>
     </footer>
-    <script  src="./js/newmain.js"></script>
 </body>
 
 </html>
