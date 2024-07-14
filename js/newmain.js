@@ -479,6 +479,28 @@ function calcularSueldo() {
 
     mostrarResultados();
     mostrarHistorialRecibos();
+    Swal.fire({
+        title: '¿Desea hacer un screenshot?',
+        imageUrl: "../img/ejemploScreen.png",
+        imageWidth: 400,
+        imageHeight: 600,
+        imageAlt: 'Imagen de ejemplo',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'No',
+        customClass: {
+            container: 'swal2-container',
+            popup: 'swal2-modal',
+            title: 'swal2-title',
+            content: 'swal2-content',
+            image: 'swal2-image'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            takeScreenshot();
+        }
+    });
 }
 
 // Función para mostrar el historial de recibos
@@ -495,7 +517,6 @@ function mostrarHistorialRecibos() {
         `;
         recibos.forEach(recibo => {
             historialHTML += `
-                <div id="screenShot">
                     <thead >
                         <tr>
                             <th colspan="2">Categoria: ${recibo.categoria}</th>
@@ -585,7 +606,6 @@ function mostrarHistorialRecibos() {
                         <tr>
                             <td colspan="4">
                                 <div class="item-historial">
-                                    
                                     <button id="eliminar-recibo" class="eliminar-recibo" onclick="eliminarRecibo(${recibo.id})" style="text-align: center;">
                                         <img src="img/basurero.png" alt="Eliminar">
                                     </button>
@@ -594,18 +614,16 @@ function mostrarHistorialRecibos() {
                         </tr>
                     </tbody>
                 </div>
-            </div>
             `;
         });
         historialHTML += `
-            </tbody>
+            </div>    
             </table> 
                     <div>
                         <button id="eliminar-historial" class="eliminar-historial" onclick="eliminarHistorial()">Eliminar Historial</button>
                     </div>`;
     }
     document.getElementById('historial-recibos').innerHTML = historialHTML;
-    addEventListeners();
 }
 
 
@@ -621,11 +639,10 @@ function eliminarRecibo(id) {
 }
 
 function eliminarHistorial() {
+    console.log("Ejecutando eliminarHisotrial")
     localStorage.removeItem("recibos");
-
-    // Volver a mostrar el historial actualizado
+    recibos = [];
     mostrarHistorialRecibos();
-    location.reload()
 }
 
 function habilitarInput() {
@@ -641,73 +658,32 @@ function habilitarInput() {
 
 }
 
-
-// Función para manejar el evento de click en los botones
-function handleButtonClick(event) {
-    const id = event.target.id;
-
-    if (id === 'eliminar-recibo') {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: 'No podrás revertir esto!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, eliminarlo!',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Lógica para eliminar recibo
-                const reciboId = parseInt(event.target.getAttribute('data-id')); // Obtener el ID del recibo
-                eliminarRecibo(reciboId); // Eliminar el recibo
-                Swal.fire(
-                    'Eliminado!',
-                    'El recibo ha sido eliminado.',
-                    'success'
-                );
-            }
-        });
-    } else if (id === 'eliminar-historial') {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: 'No podrás revertir esto!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, eliminarlo!',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                eliminarHistorial();
-                Swal.fire(
-                    'Eliminado!',
-                    'El historial ha sido eliminado.',
-                    'success'
-                );
-            }
-        });
+function takeScreenshot() {
+    console.log("Ejecutando takeScreenshot");
+    const element = document.getElementById('resultados'); // Cambia por el ID correcto
+    if (!element) {
+        console.error('El elemento no existe');
+        return;
     }
-}
+    console.log('Elemento encontrado:', element);
 
-// Función para agregar event listeners a los botones
-function addEventListeners() {
-    const eliminarReciboBtns = document.querySelectorAll('.eliminar-recibo');
-    const eliminarHistorialBtn = document.getElementById('eliminar-historial');
-
-    eliminarReciboBtns.forEach(btn => {
-        btn.addEventListener('click', handleButtonClick);
+    html2canvas(element).then(canvas => {
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = 'screenshot.png';
+        link.click();
     });
-
-    if (eliminarHistorialBtn) {
-        eliminarHistorialBtn.addEventListener('click', handleButtonClick);
-    }
 }
+
 
 // Cargar historial al cargar la página
 document.addEventListener('DOMContentLoaded', function () {
+    mostrarHistorialRecibos();
     const botonCalcular = document.getElementById('calcularSueldo');
 
     // Agregar un event listener para el evento click
     botonCalcular.addEventListener('click', function () {
         calcularSueldo(); // Llamar a la función calcularSueldo() cuando se haga clic en el botón
     });
-    mostrarHistorialRecibos();
+
 });
