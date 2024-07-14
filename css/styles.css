@@ -9,7 +9,7 @@ html {
   text-align: center;
   margin: 1em;
   margin-bottom: 2em;
-  padding: 2em;
+  padding: 1em;
   border: 5px solid #14805c;
   border-radius: 1em;
   grid-template-columns: repeat(3, 1fr);
@@ -111,8 +111,8 @@ form {
 
 .containerBox2 {
   text-align: center;
-  margin: 3em;
-  padding: 1.5em;
+  margin: 1em;
+  padding: 1em;
   border-radius: 1em;
   align-items: center;
   justify-content: center;
@@ -408,7 +408,7 @@ button {
     font-size: 3vw;
   }
   .containerBox2 {
-    margin: 1em;
+    margin: 0.4em;
   }
   .financial-main {
     margin: 1em;
@@ -426,6 +426,9 @@ button {
   .box3 {
     height: 150px;
     font-size: 0.8em;
+  }
+  .containerBox2 {
+    margin: 0em;
   }
 }
 @media (max-width: 480px) {

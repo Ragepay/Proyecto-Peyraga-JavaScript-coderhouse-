@@ -481,7 +481,7 @@ function calcularSueldo() {
     mostrarHistorialRecibos();
     Swal.fire({
         title: '¿Desea hacer un screenshot?',
-        imageUrl: "../img/ejemploScreen.png",
+        imageUrl: "./img/ejemploScreen.png",
         imageWidth: 400,
         imageHeight: 600,
         imageAlt: 'Imagen de ejemplo',
