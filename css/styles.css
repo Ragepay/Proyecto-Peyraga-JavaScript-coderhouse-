@@ -21,7 +21,6 @@ html {
   font-size: 4.5vw;
   height: auto;
   font-weight: bold;
-  grid-column: 1/4;
 }
 .container-box .box1 {
   width: auto;
